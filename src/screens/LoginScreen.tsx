@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { Button, TextInput, Divider } from "react-native-paper";
 import { Header, Container } from "../components";
 
 const LoginScreen = ({ navigation }: any) => {
@@ -8,7 +8,7 @@ const LoginScreen = ({ navigation }: any) => {
 
   return (
     <>
-      <SafeAreaView className="flex-1 justify-center items-center">
+      {/* <SafeAreaView className="flex-1 justify-center items-center"> */}
         <Container>
           <Header> Login</Header>
 
@@ -27,13 +27,20 @@ const LoginScreen = ({ navigation }: any) => {
           />
           <Button
             mode="contained"
-            className="my-4 bg-blue-500 rounded-none"
+            className="my-4 bg-[#01B9EB] rounded-sm"
             onPress={() => navigation.navigate("DashboardScreen")}
           >
             Submit
           </Button>
+          <Divider className="mt-4 mb-6" />
+          <View className="flex flex-row gap-4">
+            <Text>Don't have account?</Text>
+            <TouchableOpacity>
+              <Text className="text-[#01B9EB]" onPress={()=> navigation.navigate("RegisterScreen")}>Register now</Text>
+            </TouchableOpacity>
+          </View>
         </Container>
-      </SafeAreaView>
+      {/* </SafeAreaView> */}
     </>
   );
 };

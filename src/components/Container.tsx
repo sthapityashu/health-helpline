@@ -1,9 +1,13 @@
 import React, { Children } from "react";
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 
 const Container = (props: any) => {
   const { children } = props;
-  return <View className="w-full px-10">{children}</View>;
+  return (
+    <SafeAreaView>
+      <View className="w-full px-10">{children}</View>{/* {children} */}
+    </SafeAreaView>
+  );
 };
 
 export default Container;
