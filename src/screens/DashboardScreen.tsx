@@ -55,9 +55,12 @@ const DashboardScreen = () => {
           <Text className="text-xs text-white">How are you?</Text>
         </View>
         <TouchableOpacity onPress={handleProfile}>
-          <Avatar.Icon
+          <Avatar.Image
+            source={{
+              uri: "https://media.licdn.com/dms/image/D4D03AQEzximBza-Klw/profile-displayphoto-shrink_200_200/0/1718525400486?e=2147483647&v=beta&t=h_Tk6sQ-1G-4XzV6VeyG6X5LQslqWLq-ShnoKaLNaoE",
+            }}
             size={40}
-            icon="account"
+            // icon="account"
             className="ml-auto bg-white text-black"
           />
         </TouchableOpacity>
