@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation }: any) => {
           </Button>
           <Divider className="mt-4 mb-6" />
           <View className="flex flex-row gap-4">
-            <Text>Don't have account?</Text>
+            <Text>Don't have an account?</Text>
             <TouchableOpacity>
               <Text className="text-[#01B9EB]" onPress={()=> navigation.navigate("RegisterScreen")}>Register now</Text>
             </TouchableOpacity>
