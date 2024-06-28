@@ -9,12 +9,7 @@ import {
 import { Appbar, Avatar, BottomNavigation } from "react-native-paper";
 import { Container } from "../components";
 import HomeScreen from "./HomeScreen";
-
-const Doctor = () => (
-  <SafeAreaView>
-    <Text>Welcome to Doctor Portal</Text>
-  </SafeAreaView>
-);
+import DoctorScreen from "./DoctorScreen";
 
 const Setting = () => (
   <SafeAreaView>
@@ -47,7 +42,7 @@ const DashboardScreen = () => {
 
   const renderScene = BottomNavigation.SceneMap({
     home: HomeScreen,
-    doctor: Doctor,
+    doctor: DoctorScreen,
     setting: Setting,
   });
 
