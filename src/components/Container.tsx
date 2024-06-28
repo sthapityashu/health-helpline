@@ -5,7 +5,8 @@ const Container = (props: any) => {
   const { children } = props;
   return (
     <SafeAreaView>
-      <View className="w-full px-10">{children}</View>{/* {children} */}
+      <View className="w-full px-6">{children}</View>
+      {/* {children} */}
     </SafeAreaView>
   );
 };

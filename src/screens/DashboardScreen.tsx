@@ -1,13 +1,14 @@
 import React from "react";
-import { SafeAreaView, Text } from "react-native";
-import { BottomNavigation } from "react-native-paper";
+import {
+  Alert,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Appbar, Avatar, BottomNavigation } from "react-native-paper";
 import { Container } from "../components";
-
-const Home = () => (
-  <SafeAreaView>
-    <Text>Welcome to Home</Text>
-  </SafeAreaView>
-);
+import HomeScreen from "./HomeScreen";
 
 const Doctor = () => (
   <SafeAreaView>
@@ -45,12 +46,28 @@ const DashboardScreen = () => {
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    home: Home,
+    home: HomeScreen,
     doctor: Doctor,
     setting: Setting,
   });
+
+  const handleProfile = () => alert("Profile Clicked");
   return (
     <>
+      <Appbar.Header className="px-6 bg-[#01B9EB] flex-row items-center justify-between">
+        <View className="flex-col items-start">
+          <Text className="text-xl font-bold text-white">Hi, Yashu</Text>
+          <Text className="text-xs text-white">How are you?</Text>
+        </View>
+        <TouchableOpacity onPress={handleProfile}>
+          <Avatar.Icon
+            size={40}
+            icon="account"
+            className="ml-auto bg-white text-black"
+          />
+        </TouchableOpacity>
+      </Appbar.Header>
+
       <BottomNavigation
         navigationState={{ index, routes }}
         onIndexChange={setIndex}
