@@ -11,7 +11,6 @@ import { Container } from "../components";
 import { Avatar, Card, Button } from "react-native-paper";
 
 const HomeScreen = () => {
-  const LeftContent = (props: any) => <Avatar.Icon {...props} icon="folder" />;
 
   return (
     <Container>

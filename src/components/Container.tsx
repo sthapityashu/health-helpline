@@ -6,7 +6,6 @@ const Container = (props: any) => {
   return (
     <SafeAreaView>
       <View className="w-full px-6">{children}</View>
-      {/* {children} */}
     </SafeAreaView>
   );
 };

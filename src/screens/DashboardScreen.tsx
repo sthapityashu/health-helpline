@@ -10,6 +10,8 @@ import { Appbar, Avatar, BottomNavigation } from "react-native-paper";
 import { Container } from "../components";
 import HomeScreen from "./HomeScreen";
 import DoctorScreen from "./DoctorScreen";
+import HospitalScreen from "./HospitalScreen";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Setting = () => (
   <SafeAreaView>
@@ -17,8 +19,33 @@ const Setting = () => (
   </SafeAreaView>
 );
 
-const DashboardScreen = () => {
+const HospitalStack = createStackNavigator();
+
+const HospitalStackScreen = ({ navigation }: any) => {
+  return (
+    <HospitalStack.Navigator
+      initialRouteName="HospitalScreen"
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: "white" },
+      }}
+    >
+      <HospitalStack.Screen name="Hospital" component={HospitalScreen} />
+      <HospitalStack.Screen
+        name="DoctorScreen"
+        component={DoctorScreen}
+        options={{
+          headerShown: true,
+          headerTitle: "Doctors",
+        }}
+      />
+    </HospitalStack.Navigator>
+  );
+};
+
+const DashboardScreen = ({ navigation, route }: any) => {
   const [index, setIndex] = React.useState(0);
+
   const [routes] = React.useState([
     {
       key: "home",
@@ -33,23 +60,30 @@ const DashboardScreen = () => {
       unfocusedIcon: "account-outline",
     },
     {
-      key: "setting",
-      title: "Setting",
-      focusedIcon: "archive-settings",
-      unfocusedIcon: "archive-settings-outline",
+      key: "hospital",
+      title: "Hospital",
+      focusedIcon: "home-city",
+      unfocusedIcon: "home-city-outline",
+    },
+    {
+      key: "appointment",
+      title: "Appointment",
+      focusedIcon: "calendar-check",
+      unfocusedIcon: "calendar-blank",
     },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
     home: HomeScreen,
     doctor: DoctorScreen,
-    setting: Setting,
+    hospital: HospitalStackScreen,
+    appointment: Setting,
   });
 
   const handleProfile = () => alert("Profile Clicked");
   return (
     <>
-      <Appbar.Header className="px-6 bg-[#01B9EB] flex-row items-center justify-between">
+      {/* <Appbar.Header className="px-6 bg-[#01B9EB] flex-row items-center justify-between">
         <View className="flex-col items-start">
           <Text className="text-xl font-bold text-white">Hi, Yashu</Text>
           <Text className="text-xs text-white">How are you?</Text>
@@ -64,7 +98,29 @@ const DashboardScreen = () => {
             className="ml-auto bg-white text-black"
           />
         </TouchableOpacity>
-      </Appbar.Header>
+      </Appbar.Header> */}
+
+      {index !== 0 ? (
+        <></>
+      ) : (
+        <Appbar.Header className="px-6 bg-[#01B9EB] flex-row items-center justify-between">
+          <>
+            <View className="flex-col items-start">
+              <Text className="text-xl font-bold text-white">Hi, Yashu</Text>
+              <Text className="text-xs text-white">How are you?</Text>
+            </View>
+            <TouchableOpacity onPress={handleProfile}>
+              <Avatar.Image
+                source={{
+                  uri: "https://media.licdn.com/dms/image/D4D03AQEzximBza-Klw/profile-displayphoto-shrink_200_200/0/1718525400486?e=2147483647&v=beta&t=h_Tk6sQ-1G-4XzV6VeyG6X5LQslqWLq-ShnoKaLNaoE",
+                }}
+                size={40}
+                className="ml-auto bg-white text-black"
+              />
+            </TouchableOpacity>
+          </>
+        </Appbar.Header>
+      )}
 
       <BottomNavigation
         navigationState={{ index, routes }}

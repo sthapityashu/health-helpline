@@ -100,6 +100,7 @@ const DoctorScreen = () => {
               </View>
             </View>
           </View>
+
           <View className="bg-gray-100 w-full h-36 rounded-md my-2">
             <View className="flex flex-row w-full h-full items-center justify-around py-3">
               <Image
@@ -123,6 +124,7 @@ const DoctorScreen = () => {
               </View>
             </View>
           </View>
+
           <View className="bg-gray-100 w-full h-36 rounded-md my-2">
             <View className="flex flex-row w-full h-full items-center justify-around py-3">
               <Image
@@ -146,6 +148,7 @@ const DoctorScreen = () => {
               </View>
             </View>
           </View>
+          
           <View className="bg-gray-100 w-full h-36 rounded-md my-2">
             <View className="flex flex-row w-full h-full items-center justify-around py-3">
               <Image
