@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Appbar, Avatar, BottomNavigation } from "react-native-paper";
+import { Appbar, Avatar, BottomNavigation, Drawer } from "react-native-paper";
 
 // Components
 import { Container } from "../components";
@@ -43,6 +43,10 @@ const HospitalStackScreen = ({ navigation }: any) => {
         options={{
           headerShown: true,
           headerTitle: "Doctors",
+          headerTintColor: "white",
+          headerStyle: {
+            backgroundColor: "#01B9EB",
+          },
         }}
       />
     </HospitalStack.Navigator>
@@ -86,7 +90,24 @@ const DashboardScreen = ({ navigation, route }: any) => {
     appointment: AppointmentScreen,
   });
 
-  const handleProfile = () => alert("Profile Clicked");
+  const handleProfile = () => {
+    // const [active, setActive] = React.useState("");
+
+    return (
+      <Drawer.Section title="Some title">
+        <Drawer.Item
+          label="First Item"
+          // active={active === "first"}
+          onPress={() => alert("Hello")}
+        />
+        {/* <Drawer.Item
+          label="Second Item"
+          active={active === "second"}
+          onPress={() => setActive("second")}
+        /> */}
+      </Drawer.Section>
+    );
+  };
   return (
     <>
       {/* <Appbar.Header className="px-6 bg-[#01B9EB] flex-row items-center justify-between">
