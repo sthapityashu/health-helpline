@@ -31,16 +31,16 @@ const HospitalScreen = ({ navigation }: any) => {
         <>
           <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
             <View className="bg-gray-100 w-full h-28 rounded-md my-2">
-              <View className="flex flex-row w-full h-full items-center justify-around py-3">
+              <View className="flex flex-row items-center justify-start p-4">
                 <Image
-                  className="h-[90px] w-[90px] rounded-md"
+                  className="h-20 w-20 rounded-md"
                   source={{
                     uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
                   }}
                 />
-                <View>
+                <View className="flex-1 ml-4">
                   <Text className="text-xl font-bold">Alka Hospital</Text>
-                  <Text>Lalitpur</Text>
+                  <Text>Jawalakhel, Lalitpur</Text>
                 </View>
               </View>
             </View>
@@ -48,16 +48,88 @@ const HospitalScreen = ({ navigation }: any) => {
 
           <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
             <View className="bg-gray-100 w-full h-28 rounded-md my-2">
-              <View className="flex flex-row w-full h-full items-center justify-around py-3">
+              <View className="flex flex-row items-center justify-start p-4">
                 <Image
-                  className="h-[90px] w-[90px] rounded-md"
+                  className="h-20 w-20 rounded-md"
                   source={{
                     uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
                   }}
                 />
-                <View>
+                <View className="flex-1 ml-4">
                   <Text className="text-xl font-bold">Teaching Hospital</Text>
-                  <Text>Maharajgunj</Text>
+                  <Text>Maharajgunj, Kathmandu</Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
+            <View className="bg-gray-100 w-full h-28 rounded-md my-2">
+              <View className="flex flex-row items-center justify-start p-4">
+                <Image
+                  className="h-20 w-20 rounded-md"
+                  source={{
+                    uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
+                  }}
+                />
+                <View className="flex-1 ml-4">
+                  <Text className="text-xl font-bold">
+                    Norvic International Hospital
+                  </Text>
+                  <Text>Thapathali, Kathmandu</Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
+            <View className="bg-gray-100 w-full h-28 rounded-md my-2">
+              <View className="flex flex-row items-center justify-start p-4">
+                <Image
+                  className="h-20 w-20 rounded-md"
+                  source={{
+                    uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
+                  }}
+                />
+                <View className="flex-1 ml-4">
+                  <Text className="text-xl font-bold">
+                    Grande International Hospital
+                  </Text>
+                  <Text>Dhapasi, Kathmandu</Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
+            <View className="bg-gray-100 w-full h-28 rounded-md my-2">
+              <View className="flex flex-row items-center justify-start p-4">
+                <Image
+                  className="h-20 w-20 rounded-md"
+                  source={{
+                    uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
+                  }}
+                />
+                <View className="flex-1 ml-4">
+                  <Text className="text-xl font-bold">Bir Hospital</Text>
+                  <Text>Tundikhel, Kathmandu</Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
+            <View className="bg-gray-100 w-full h-28 rounded-md my-2">
+              <View className="flex flex-row items-center justify-start p-4">
+                <Image
+                  className="h-20 w-20 rounded-md"
+                  source={{
+                    uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
+                  }}
+                />
+                <View className="flex-1 ml-4">
+                  <Text className="text-xl font-bold">B & B Hospital</Text>
+                  <Text>Gwarko, Lalitpur</Text>
                 </View>
               </View>
             </View>

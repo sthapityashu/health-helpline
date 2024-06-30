@@ -1,3 +1,4 @@
+// Defaults
 import React from "react";
 import {
   Alert,
@@ -6,12 +7,17 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
 import { Appbar, Avatar, BottomNavigation } from "react-native-paper";
+
+// Components
 import { Container } from "../components";
+
+// Screens
 import HomeScreen from "./HomeScreen";
 import DoctorScreen from "./DoctorScreen";
 import HospitalScreen from "./HospitalScreen";
-import { createStackNavigator } from "@react-navigation/stack";
+import AppointmentScreen from "./AppointmentScreen";
 
 const Setting = () => (
   <SafeAreaView>
@@ -77,7 +83,7 @@ const DashboardScreen = ({ navigation, route }: any) => {
     home: HomeScreen,
     doctor: DoctorScreen,
     hospital: HospitalStackScreen,
-    appointment: Setting,
+    appointment: AppointmentScreen,
   });
 
   const handleProfile = () => alert("Profile Clicked");
