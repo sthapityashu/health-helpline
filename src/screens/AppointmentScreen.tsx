@@ -81,12 +81,12 @@ const AppointmentScreen = () => {
       <View className="mb-4">
         <Text className="mb-2">Select Date</Text>
 
-        <DateTimePicker
+        {/* <DateTimePicker
           value={date}
           mode="date"
           display="calendar"
           onChange={handleDateChange}
-        />
+        /> */}
       </View>
       <View className="mb-4">
         <Text className="mb-2">{time.toTimeString().substr(0, 5)}</Text>

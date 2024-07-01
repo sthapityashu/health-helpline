@@ -1,4 +1,4 @@
-import React from "react";
+// Default
 import {
   ImageBackground,
   Text,
@@ -7,21 +7,32 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import { Container } from "../components";
 import { Avatar, Card, Button } from "react-native-paper";
 
+// Relative
+import { Container } from "../components";
+
+// Hooks
+import usePlatform from "../hooks/usePlatform";
+
 const HomeScreen = () => {
+  // Custom Hooks
+  const { isIOS } = usePlatform();
 
   return (
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Card Sction */}
-        <View className={"w-full rounded-lg overflow-hidden my-4"}>
+        <View
+          className={`w-full rounded-lg overflow-hidden ${
+            isIOS ? "my-4" : "mb-4"
+          } `}
+        >
           <ImageBackground
             source={{
               uri: "https://t3.ftcdn.net/jpg/05/98/48/68/360_F_598486839_BBuUhox8KrPFdgL4Sin1vOHitmKDZ29H.jpg",
             }}
-            className={"w-full h-44 justify-center"}
+            className={"w-full h-48 justify-center"}
           >
             <View className="flex-1 flex-row justify-between gap-4">
               <View className="flex flex-col px-4 py-4">
@@ -41,11 +52,13 @@ const HomeScreen = () => {
             </View>
           </ImageBackground>
         </View>
+
         {/* Doctor Speciality */}
         <View className="flex flex-row items-center justify-between">
           <Text className="text-xl font-bold">Doctor Speciality</Text>
           <Text>See All</Text>
         </View>
+
         {/* Speciality Section */}
         <View className="flex flex-row justify-between items-center my-2">
           <View className="flex items-center justify-center gap-2">
@@ -96,11 +109,13 @@ const HomeScreen = () => {
             <Text>Pediatric</Text>
           </View>
         </View>
+
         {/* Recomendation */}
         <View className="flex flex-row items-center justify-between my-2">
           <Text className="text-xl font-bold">Recommendation Doctor</Text>
           <Text>See All</Text>
         </View>
+
         {/* Recomendation Card */}
         <>
           <View className="bg-gray-100 w-full h-36 rounded-md my-2">
