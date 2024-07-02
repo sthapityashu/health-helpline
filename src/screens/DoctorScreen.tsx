@@ -3,7 +3,7 @@ import { Container } from "../components";
 import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
 import { Avatar, TextInput, IconButton } from "react-native-paper";
 
-const DoctorScreen = () => {
+const DoctorScreen = ({ navigation }: any) => {
   const [text, setText] = React.useState("");
   return (
     <Container>
@@ -27,7 +27,9 @@ const DoctorScreen = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
         <>
-          <TouchableOpacity onPress={() => alert("Doctor clicked")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AppointmentScreen")}
+          >
             <View className="bg-gray-100 w-full h-36 rounded-md my-2">
               <View className="flex flex-row w-full h-full items-center justify-around py-3">
                 <Image
@@ -148,7 +150,7 @@ const DoctorScreen = () => {
               </View>
             </View>
           </View>
-          
+
           <View className="bg-gray-100 w-full h-36 rounded-md my-2">
             <View className="flex flex-row w-full h-full items-center justify-around py-3">
               <Image

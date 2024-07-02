@@ -49,6 +49,18 @@ const HospitalStackScreen = ({ navigation }: any) => {
           },
         }}
       />
+      <HospitalStack.Screen
+        name="AppointmentScreen"
+        component={AppointmentScreen}
+        options={{
+          headerShown: true,
+          headerTitle: "Book an appointment",
+          headerTintColor: "white",
+          headerStyle: {
+            backgroundColor: "#01B9EB",
+          },
+        }}
+      />
     </HospitalStack.Navigator>
   );
 };

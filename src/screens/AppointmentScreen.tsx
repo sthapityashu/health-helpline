@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { TextInput, Button, HelperText, Avatar } from "react-native-paper";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import DropDown from "react-native-paper-dropdown";
@@ -47,66 +47,23 @@ const AppointmentScreen = () => {
 
   return (
     <Container className="p-4 bg-white">
-      <View className="mb-4">
-        <Text className="text-lg font-bold">Book an Appointment</Text>
-      </View>
-
-      <View className="mb-4">
-        {/* <Text className="mb-2">Select Hospital</Text> */}
-        <DropDown
-          label={"Select Hospital"}
-          mode={"outlined"}
-          visible={showHospitalDropdown}
-          showDropDown={() => setShowHospitalDropdown(true)}
-          onDismiss={() => setShowHospitalDropdown(false)}
-          value={hospital}
-          setValue={setHospital}
-          list={hospitals}
+      <View className="my-4 flex flex-row bg-gray-400">
+        <Image
+          className="w-32 h-32 rounded-md"
+          source={{
+            uri: "https://thumbs.dreamstime.com/b/young-smiling-old-man-doctor-medical-specialist-medicine-concept-cute-d-icon-people-character-illustration-cartoon-minimal-young-279139332.jpg",
+          }}
         />
-      </View>
-
-      <View className="mb-4">
-        <DropDown
-          label={"Select Doctor"}
-          mode={"outlined"}
-          visible={showDoctorDropdown}
-          showDropDown={() => setShowDoctorDropdown(true)}
-          onDismiss={() => setShowDoctorDropdown(false)}
-          value={doctor}
-          setValue={setDoctor}
-          list={doctors}
-        />
-      </View>
-
-      <View className="mb-4">
-        <Text className="mb-2">Select Date</Text>
-
-        {/* <DateTimePicker
-          value={date}
-          mode="date"
-          display="calendar"
-          onChange={handleDateChange}
-        /> */}
-      </View>
-      <View className="mb-4">
-        <Text className="mb-2">{time.toTimeString().substr(0, 5)}</Text>
-        <TouchableOpacity onPress={() => setShowTimePicker(true)}>
-          <Avatar.Icon
-            icon="clock"
-            size={64}
-            className="bg-transparent"
-            color="black"
-          />
-        </TouchableOpacity>
-        {showTimePicker && (
-          <DateTimePicker
-            value={time}
-            mode="time"
-            display="spinner"
-            onChange={handleTimeChange}
-            style={{ backgroundColor: "white" }} // Adjust as needed
-          />
-        )}
+        <View
+          className="pl-2"
+          style={{ flexWrap: "wrap", display: "flex", maxWidth:4 }}
+        >
+          <Text className="text-xl">Dr. Yashu Sthapit</Text>
+          <Text className="text-base max-w-2 bg-green-400">
+            Consultant Orthopaedic & Arthroscopic Surgeon
+          </Text>
+          <Text className="font-bold text-base">NMC NO. 4529</Text>
+        </View>
       </View>
       <Button
         mode="contained"
