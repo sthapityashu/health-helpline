@@ -42,7 +42,7 @@ const HospitalStackScreen = ({ navigation }: any) => {
         component={DoctorScreen}
         options={{
           headerShown: true,
-          headerTitle: "Doctors",
+          headerTitle: "Doctor",
           headerTintColor: "white",
           headerStyle: {
             backgroundColor: "#01B9EB",
@@ -102,24 +102,6 @@ const DashboardScreen = ({ navigation, route }: any) => {
     appointment: AppointmentScreen,
   });
 
-  const handleProfile = () => {
-    // const [active, setActive] = React.useState("");
-
-    return (
-      <Drawer.Section title="Some title">
-        <Drawer.Item
-          label="First Item"
-          // active={active === "first"}
-          onPress={() => alert("Hello")}
-        />
-        {/* <Drawer.Item
-          label="Second Item"
-          active={active === "second"}
-          onPress={() => setActive("second")}
-        /> */}
-      </Drawer.Section>
-    );
-  };
   return (
     <>
       {/* <Appbar.Header className="px-6 bg-[#01B9EB] flex-row items-center justify-between">
@@ -148,7 +130,7 @@ const DashboardScreen = ({ navigation, route }: any) => {
               <Text className="text-xl font-bold text-white">Hi, Yashu</Text>
               <Text className="text-xs text-white">How are you?</Text>
             </View>
-            <TouchableOpacity onPress={handleProfile}>
+            <TouchableOpacity onPress={() => alert("Profile Clicked")}>
               <Avatar.Image
                 source={{
                   uri: "https://media.licdn.com/dms/image/D4D03AQEzximBza-Klw/profile-displayphoto-shrink_200_200/0/1718525400486?e=2147483647&v=beta&t=h_Tk6sQ-1G-4XzV6VeyG6X5LQslqWLq-ShnoKaLNaoE",
