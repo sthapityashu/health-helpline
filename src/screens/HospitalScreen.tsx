@@ -40,7 +40,10 @@ const HospitalScreen = ({ navigation }: any) => {
                 />
                 <View className="flex-1 ml-4">
                   <Text className="text-xl font-bold">Alka Hospital</Text>
-                  <Text>Jawalakhel, Lalitpur</Text>
+                  <Text className="text-lg">Jawalakhel, Lalitpur</Text>
+                  <Text className="font-semibold">
+                    01,1237483 +977 9876567384
+                  </Text>
                 </View>
               </View>
             </View>
@@ -57,7 +60,10 @@ const HospitalScreen = ({ navigation }: any) => {
                 />
                 <View className="flex-1 ml-4">
                   <Text className="text-xl font-bold">Teaching Hospital</Text>
-                  <Text>Maharajgunj, Kathmandu</Text>
+                  <Text className="text-lg">Maharajgunj, Kathmandu</Text>
+                  <Text className="font-semibold">
+                    01,1237483 +977 9876567384
+                  </Text>
                 </View>
               </View>
             </View>
@@ -76,7 +82,10 @@ const HospitalScreen = ({ navigation }: any) => {
                   <Text className="text-xl font-bold">
                     Norvic International Hospital
                   </Text>
-                  <Text>Thapathali, Kathmandu</Text>
+                  <Text className="text-lg">Thapathali, Kathmandu</Text>
+                  <Text className="font-semibold">
+                    01,1237483 +977 9876567384
+                  </Text>
                 </View>
               </View>
             </View>
@@ -95,7 +104,10 @@ const HospitalScreen = ({ navigation }: any) => {
                   <Text className="text-xl font-bold">
                     Grande International Hospital
                   </Text>
-                  <Text>Dhapasi, Kathmandu</Text>
+                  <Text className="text-lg">Dhapasi, Kathmandu</Text>
+                  <Text className="font-semibold">
+                    01,1237483 +977 9876567384
+                  </Text>
                 </View>
               </View>
             </View>
@@ -112,7 +124,10 @@ const HospitalScreen = ({ navigation }: any) => {
                 />
                 <View className="flex-1 ml-4">
                   <Text className="text-xl font-bold">Bir Hospital</Text>
-                  <Text>Tundikhel, Kathmandu</Text>
+                  <Text className="text-lg">Tundikhel, Kathmandu</Text>
+                  <Text className="font-semibold">
+                    01,1237483 +977 9876567384
+                  </Text>
                 </View>
               </View>
             </View>
@@ -129,7 +144,10 @@ const HospitalScreen = ({ navigation }: any) => {
                 />
                 <View className="flex-1 ml-4">
                   <Text className="text-xl font-bold">B & B Hospital</Text>
-                  <Text>Gwarko, Lalitpur</Text>
+                  <Text className="text-lg">Gwarko, Lalitpur</Text>
+                  <Text className="font-semibold">
+                    01,1237483 +977 9876567384
+                  </Text>
                 </View>
               </View>
             </View>
