@@ -26,7 +26,7 @@ const AppointmentScreen = () => {
     const currentDate = selectedDate || date;
     setHospitalTime("");
     setShowDatePicker(false);
-    setDate(currentDate);
+    setDate(currentDate); 
   };
 
   const handleTimeChange = (selectedTime: any) => {

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+// Default
+import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Button, TextInput, Divider } from "react-native-paper";
+
+// Relative
 import { Header, Container } from "../components";
 
 const LoginScreen = ({ navigation }: any) => {
