@@ -7,9 +7,9 @@ import { useNavigationState, useIsFocused } from "@react-navigation/native";
 // Screens
 import HomeScreen from "./HomeScreen";
 import DoctorScreen from "./DoctorScreen";
-import AppointmentScreen from "./AppointmentScreen";
 import HospitalStackScreen from "./HospitalStackScreen";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
+import BloodTestScreen from "./BloodTestScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -170,6 +170,20 @@ const DashboardScreen = ({ navigation }: any) => {
             tabBarIcon: ({ color }) => (
               <Avatar.Icon
                 icon="hospital-building"
+                size={30}
+                color={color}
+                className="bg-transparent"
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Blood Test"
+          component={BloodTestScreen}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Avatar.Icon
+                icon="test-tube"
                 size={30}
                 color={color}
                 className="bg-transparent"

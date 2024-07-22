@@ -26,7 +26,32 @@ const HospitalScreen = ({ navigation }: any) => {
         />
         <IconButton icon="filter-variant" size={24} className="p-0 m-0" />
       </View>
-
+      <View className="flex flex-row items-center justify-between">
+        <Text className="text-xl font-bold">Recently Visited</Text>
+      </View>
+      <ScrollView
+        horizontal={true}
+        className="h-10 my-4"
+        showsHorizontalScrollIndicator={false}
+      >
+        <View className="flex flex-row gap-4">
+          <View className="bg-green-300 rounded-3xl p-2 min-w-[50px]">
+            <Text className="text-center">Teaching Hospital</Text>
+          </View>
+          <View className="bg-red-300 rounded-3xl p-2">
+            <Text className="text-center">Alka Hospital</Text>
+          </View>
+          <View className="bg-gray-300 rounded-3xl p-2">
+            <Text className="text-center">Bir Hospital</Text>
+          </View>
+          <View className="bg-blue-300 rounded-3xl p-2">
+            <Text>Norvic International</Text>
+          </View>
+          <View className="bg-slate-300 rounded-3xl p-2">
+            <Text className="text-center">Grande International</Text>
+          </View>
+        </View>
+      </ScrollView>
       <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
         <>
           <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
