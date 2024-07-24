@@ -1,7 +1,7 @@
 // Defaults
 import React from "react";
 import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
-import { Avatar, TextInput, IconButton } from "react-native-paper";
+import { Avatar } from "react-native-paper";
 
 // Components
 import { Container, SearchInput } from "@components/index";
