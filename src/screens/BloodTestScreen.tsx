@@ -2,9 +2,32 @@ import React from "react";
 import { View, ScrollView, TouchableOpacity, Image } from "react-native";
 import { Avatar, IconButton, Text, TextInput } from "react-native-paper";
 import { Container } from "../components";
+import { BloodTest } from "@utils/data/constants/blood-test";
+
+const backgroundColors = [
+  "bg-green-100",
+  "bg-red-100",
+  "bg-gray-100",
+  "bg-blue-100",
+  "bg-orange-100",
+  "bg-slate-100",
+];
 
 const BloodTestScreen = ({ navigation }: any) => {
   const [text, setText] = React.useState("");
+  console.log("BloodTestBloodTest", BloodTest);
+
+  const pairs = BloodTest.reduce(
+    (result: any, value: any, index: any, array: any) => {
+      if (index % 2 === 0) {
+        result.push(array.slice(index, index + 2));
+      }
+      return result;
+    },
+    []
+  );
+
+  console.log("pairs", pairs);
   return (
     <>
       <Container>
@@ -27,231 +50,51 @@ const BloodTestScreen = ({ navigation }: any) => {
           <IconButton icon="filter-variant" size={24} className="p-0 m-0" />
         </View>
         {/* Doctor Speciality */}
-        <View className="flex flex-row items-center justify-between">
+        <View className="flex flex-row items-center justify-between mb-2">
           <Text className="text-xl font-bold">
             Health Checkups and Screenings
           </Text>
         </View>
 
-        {/* Speciality Section */}
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          className="h-[130px]"
-        >
-          <View className="flex flex-row justify-between items-center my-2 gap-3">
-            <View className="flex items-center justify-center gap-2">
-              <View className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center">
-                <Image
-                  className="h-[38px] w-[38px]"
-                  source={{
-                    uri: "https://cdn-icons-png.flaticon.com/512/7403/7403331.png",
-                  }}
-                />
+        <ScrollView showsVerticalScrollIndicator={false} className="mb-60">
+          <View className="flex flex-col mt-4 gap-3">
+            {pairs.map((pair: any, index: number) => (
+              <View className="flex flex-row justify-between" key={index}>
+                {pair.map((item: any, subIndex: number) => {
+                  // Calculate the index for the background color
+                  const colorIndex =
+                    (index * 2 + subIndex) % backgroundColors.length;
+                  return (
+                    <TouchableOpacity
+                      className="h-[200px] w-[48%]"
+                      onPress={() =>
+                        navigation.navigate("BloodTestListScreen", {
+                          userId: item.testId,
+                        })
+                      }
+                      key={subIndex}
+                    >
+                      <View
+                        className={`${backgroundColors[colorIndex]} rounded-lg flex justify-start`}
+                      >
+                        <Image
+                          source={{ uri: item.image }}
+                          className="h-[70%] w-full rounded-t-lg"
+                          alt={item.category}
+                        />
+                        <View className="h-[30%] flex items-center justify-center">
+                          <Text className="text-[14px] px-2 text-center">
+                            {item.category}
+                          </Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })}
               </View>
-              <Text>Diabetes</Text>
-            </View>
-
-            <View className="flex items-center justify-center gap-2">
-              <View className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center">
-                <Image
-                  className="h-[38px] w-[38px]"
-                  source={{
-                    uri: "https://cdn-icons-png.freepik.com/512/9445/9445780.png",
-                  }}
-                />
-              </View>
-              <Text>Skin</Text>
-            </View>
-
-            <View className="flex items-center justify-center gap-2">
-              <View className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center">
-                <Image
-                  className="h-[38px] w-[38px]"
-                  source={{
-                    uri: "https://cdn-icons-png.flaticon.com/512/4228/4228684.png",
-                  }}
-                />
-              </View>
-              <Text>Kidney</Text>
-            </View>
-
-            <View className="flex items-center justify-center gap-2">
-              <View className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center">
-                <Image
-                  className="h-[38px] w-[38px]"
-                  source={{
-                    uri: "https://cdn-icons-png.flaticon.com/512/10154/10154448.png",
-                  }}
-                />
-              </View>
-              <Text>Abdomen</Text>
-            </View>
-
-            <View className="flex items-center justify-center gap-2">
-              <View className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center">
-                <Image
-                  className="h-[38px] w-[38px]"
-                  source={{
-                    uri: "https://cdn-icons-png.flaticon.com/512/7403/7403331.png",
-                  }}
-                />
-              </View>
-              <Text>Lab</Text>
-            </View>
+            ))}
           </View>
         </ScrollView>
-        {/* <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
-          <>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("AppointmentScreen")}
-            >
-              <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-                <View className="flex flex-row w-full h-full items-center justify-around py-3">
-                  <Image
-                    className="h-full w-32 rounded-md"
-                    source={{
-                      uri: "https://thumbs.dreamstime.com/b/young-smiling-old-man-doctor-medical-specialist-medicine-concept-cute-d-icon-people-character-illustration-cartoon-minimal-young-279139332.jpg",
-                    }}
-                  />
-                  <View>
-                    <Text className="text-xl font-bold">Dr. Yashu Sthapit</Text>
-                    <Text>Neuro Surgeon</Text>
-                    <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                      <Avatar.Icon
-                        icon="star"
-                        color="#FFD700"
-                        className="bg-transparent px-0"
-                        size={32}
-                      />
-                      <Text>4.8 (4,278 reviews)</Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-
-            <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-              <View className="flex flex-row w-full h-full items-center justify-around py-3">
-                <Image
-                  className="h-full w-32 rounded-md"
-                  source={{
-                    uri: "https://i.pinimg.com/736x/41/74/fa/4174fad3ab126ebcb3d977795400c854.jpg",
-                  }}
-                />
-                <View>
-                  <Text className="text-xl font-bold">Dr. Udip Yakha Rai</Text>
-                  <Text>Radiologis</Text>
-                  <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                    <Avatar.Icon
-                      icon="star"
-                      color="#FFD700"
-                      className="bg-transparent px-0"
-                      size={32}
-                    />
-                    <Text>4.8 (4,278 reviews)</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-              <View className="flex flex-row w-full h-full items-center justify-around py-3">
-                <Image
-                  className="h-full w-32 rounded-md"
-                  source={{
-                    uri: "https://i.pinimg.com/736x/41/74/fa/4174fad3ab126ebcb3d977795400c854.jpg",
-                  }}
-                />
-                <View>
-                  <Text className="text-xl font-bold">Dr. Udip Yakha Rai</Text>
-                  <Text>Radiologis</Text>
-                  <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                    <Avatar.Icon
-                      icon="star"
-                      color="#FFD700"
-                      className="bg-transparent px-0"
-                      size={32}
-                    />
-                    <Text>4.8 (4,278 reviews)</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-              <View className="flex flex-row w-full h-full items-center justify-around py-3">
-                <Image
-                  className="h-full w-32 rounded-md"
-                  source={{
-                    uri: "https://i.pinimg.com/736x/41/74/fa/4174fad3ab126ebcb3d977795400c854.jpg",
-                  }}
-                />
-                <View>
-                  <Text className="text-xl font-bold">Dr. Udip Yakha Rai</Text>
-                  <Text>Radiologis</Text>
-                  <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                    <Avatar.Icon
-                      icon="star"
-                      color="#FFD700"
-                      className="bg-transparent px-0"
-                      size={32}
-                    />
-                    <Text>4.8 (4,278 reviews)</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-              <View className="flex flex-row w-full h-full items-center justify-around py-3">
-                <Image
-                  className="h-full w-32 rounded-md"
-                  source={{
-                    uri: "https://i.pinimg.com/736x/41/74/fa/4174fad3ab126ebcb3d977795400c854.jpg",
-                  }}
-                />
-                <View>
-                  <Text className="text-xl font-bold">Dr. Udip Yakha Rai</Text>
-                  <Text>Radiologis</Text>
-                  <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                    <Avatar.Icon
-                      icon="star"
-                      color="#FFD700"
-                      className="bg-transparent px-0"
-                      size={32}
-                    />
-                    <Text>4.8 (4,278 reviews)</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-              <View className="flex flex-row w-full h-full items-center justify-around py-3">
-                <Image
-                  className="h-full w-32 rounded-md"
-                  source={{
-                    uri: "https://i.pinimg.com/736x/41/74/fa/4174fad3ab126ebcb3d977795400c854.jpg",
-                  }}
-                />
-                <View>
-                  <Text className="text-xl font-bold">Dr. Udip Yakha Rai</Text>
-                  <Text>Radiologis</Text>
-                  <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                    <Avatar.Icon
-                      icon="star"
-                      color="#FFD700"
-                      className="bg-transparent px-0"
-                      size={32}
-                    />
-                    <Text>4.8 (4,278 reviews)</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </>
-        </ScrollView> */}
       </Container>
     </>
   );

@@ -9,7 +9,7 @@ import HomeScreen from "./HomeScreen";
 import DoctorScreen from "./DoctorScreen";
 import HospitalStackScreen from "./HospitalStackScreen";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
-import BloodTestScreen from "./BloodTestScreen";
+import BloodTestStackScreen from "./BloodTestStackScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -179,7 +179,7 @@ const DashboardScreen = ({ navigation }: any) => {
         />
         <Tab.Screen
           name="Blood Test"
-          component={BloodTestScreen}
+          component={BloodTestStackScreen}
           options={{
             tabBarIcon: ({ color }) => (
               <Avatar.Icon
