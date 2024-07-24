@@ -1,7 +1,12 @@
+// Default
 import React from "react";
 import { View, ScrollView, TouchableOpacity, Image } from "react-native";
 import { Avatar, IconButton, Text, TextInput } from "react-native-paper";
-import { Container } from "../components";
+
+// Components
+import { Container, SearchInput } from "@components/index";
+
+// Utils
 import { BloodTest } from "@utils/data/constants/blood-test";
 
 const backgroundColors = [
@@ -14,9 +19,7 @@ const backgroundColors = [
 ];
 
 const BloodTestScreen = ({ navigation }: any) => {
-  const [text, setText] = React.useState("");
-  console.log("BloodTestBloodTest", BloodTest);
-
+  // Function to reduce the total array into 2
   const pairs = BloodTest.reduce(
     (result: any, value: any, index: any, array: any) => {
       if (index % 2 === 0) {
@@ -27,28 +30,10 @@ const BloodTestScreen = ({ navigation }: any) => {
     []
   );
 
-  console.log("pairs", pairs);
   return (
     <>
       <Container>
-        <View className="flex flex-row items-center my-4 border border-gray-300 rounded">
-          <TextInput
-            placeholder="Search"
-            value={text}
-            onChangeText={(text) => setText(text)}
-            className="flex-1 py-2 pl-2 pr-0 h-8 bg-transparent"
-            underlineColor="transparent"
-            selectionColor="black"
-            theme={{ colors: { background: "transparent" } }}
-          />
-          <Avatar.Icon
-            icon="magnify"
-            size={32}
-            className="p-0 m-0 bg-[#01B9EB] rounded-md"
-            color="white"
-          />
-          <IconButton icon="filter-variant" size={24} className="p-0 m-0" />
-        </View>
+        <SearchInput />
         {/* Doctor Speciality */}
         <View className="flex flex-row items-center justify-between mb-2">
           <Text className="text-xl font-bold">

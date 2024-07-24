@@ -65,10 +65,10 @@ const DashboardScreen = ({ navigation }: any) => {
     return route.name;
   };
 
-  console.log(
-    "getCurrentRouteName",
-    navigationState?.routes[navigationState?.routes?.length - 1]?.state?.routes
-  );
+  // console.log(
+  //   "getCurrentRouteName",
+  //   navigationState?.routes[navigationState?.routes?.length - 1]?.state?.routes
+  // );
   const currentRouteName = getCurrentRouteName(navigationState);
 
   useEffect(() => {

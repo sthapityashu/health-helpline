@@ -1,103 +1,94 @@
+// Defaults
 import React from "react";
-import { Container } from "../components";
 import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
 import { Avatar, TextInput, IconButton } from "react-native-paper";
 
+// Components
+import { Container, SearchInput } from "@components/index";
+
 const DoctorScreen = ({ navigation }: any) => {
-  const [text, setText] = React.useState("");
   return (
     <Container>
-      <View className="flex flex-row items-center my-4 border border-gray-300 rounded">
-        <TextInput
-          placeholder="Search"
-          value={text}
-          onChangeText={(text) => setText(text)}
-          className="flex-1 py-2 pl-2 pr-0 h-8 bg-transparent"
-          underlineColor="transparent"
-          selectionColor="black"
-          theme={{ colors: { background: "transparent" } }}
-        />
-        <Avatar.Icon
-          icon="magnify"
-          size={32}
-          className="p-0 m-0 bg-[#01B9EB] rounded-md"
-          color="white"
-        />
-        <IconButton icon="filter-variant" size={24} className="p-0 m-0" />
-      </View>
-      {/* Doctor Speciality */}
-      <View className="flex flex-row items-center justify-between">
-        <Text className="text-xl font-bold">Recommended Docotors</Text>
-      </View>
+      <SearchInput />
 
-      {/* Speciality Section */}
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        className="h-[150px]"
-      >
-        <View className="flex flex-row justify-between items-center my-2 gap-3 mt-1">
-          <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
-            <View className="w-16 h-16 flex items-center justify-center bg-green-300 rounded-full">
-              <Image
-                className="h-[50px] w-[50px]"
-                source={{
-                  uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
-                }}
-              />
-            </View>
-            <Text className="h-10 text-center pt-1">Dr. Yashu Sthapit</Text>
-          </View>
-
-          <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
-            <View className="w-16 h-16 flex items-center justify-center bg-blue-300 rounded-full">
-              <Image
-                className="h-[50px] w-[50px]"
-                source={{
-                  uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
-                }}
-              />
-            </View>
-            <Text className="h-10 text-center pt-1">Dr. Udip Rai</Text>
-          </View>
-
-          <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
-            <View className="w-16 h-16 flex items-center justify-center bg-slate-300 rounded-full">
-              <Image
-                className="h-[50px] w-[50px]"
-                source={{
-                  uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
-                }}
-              />
-            </View>
-            <Text className="h-10 text-center pt-1">Dr. Bikesh Maharjan</Text>
-          </View>
-
-          <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
-            <View className="w-16 h-16 flex items-center justify-center bg-red-300 rounded-full">
-              <Image
-                className="h-[50px] w-[50px]"
-                source={{
-                  uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
-                }}
-              />
-            </View>
-            <Text className="h-10 text-center pt-1">Dr. Santosh Thapa</Text>
-          </View>
-          <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
-            <View className="w-16 h-16 flex items-center justify-center bg-orange-300 rounded-full">
-              <Image
-                className="h-[50px] w-[50px]"
-                source={{
-                  uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
-                }}
-              />
-            </View>
-            <Text className="h-10 text-center pt-1">Dr. Ram Maharjan</Text>
-          </View>
-        </View>
-      </ScrollView>
       <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
+        {/* Recommendation Section */}
+        <View>
+          <View className="flex flex-row items-center justify-between">
+            <Text className="text-xl font-bold">Recommended Docotors</Text>
+          </View>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            className="h-[100px]"
+          >
+            {/* Speciality Section */}
+            <View className="flex flex-row justify-between items-center my-2 gap-3 mt-1">
+              <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
+                <View className="w-16 h-16 flex items-center justify-center bg-green-300 rounded-full">
+                  <Image
+                    className="h-[50px] w-[50px]"
+                    source={{
+                      uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
+                    }}
+                  />
+                </View>
+                <Text className="h-10 text-center pt-1">Dr. Yashu Sthapit</Text>
+              </View>
+
+              <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
+                <View className="w-16 h-16 flex items-center justify-center bg-blue-300 rounded-full">
+                  <Image
+                    className="h-[50px] w-[50px]"
+                    source={{
+                      uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
+                    }}
+                  />
+                </View>
+                <Text className="h-10 text-center pt-1">Dr. Udip Rai</Text>
+              </View>
+
+              <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
+                <View className="w-16 h-16 flex items-center justify-center bg-slate-300 rounded-full">
+                  <Image
+                    className="h-[50px] w-[50px]"
+                    source={{
+                      uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
+                    }}
+                  />
+                </View>
+                <Text className="h-10 text-center pt-1">
+                  Dr. Bikesh Maharjan
+                </Text>
+              </View>
+
+              <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
+                <View className="w-16 h-16 flex items-center justify-center bg-red-300 rounded-full">
+                  <Image
+                    className="h-[50px] w-[50px]"
+                    source={{
+                      uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
+                    }}
+                  />
+                </View>
+                <Text className="h-10 text-center pt-1">Dr. Santosh Thapa</Text>
+              </View>
+              <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
+                <View className="w-16 h-16 flex items-center justify-center bg-orange-300 rounded-full">
+                  <Image
+                    className="h-[50px] w-[50px]"
+                    source={{
+                      uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
+                    }}
+                  />
+                </View>
+                <Text className="h-10 text-center pt-1">Dr. Ram Maharjan</Text>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+
+        {/* Overall List Section */}
         <>
           <TouchableOpacity
             onPress={() => navigation.navigate("AppointmentScreen")}
