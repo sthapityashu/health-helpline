@@ -149,7 +149,7 @@ const DashboardScreen = ({ navigation }: any) => {
             ),
           }}
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Doctor"
           component={DoctorScreen}
           options={{
@@ -162,9 +162,9 @@ const DashboardScreen = ({ navigation }: any) => {
               />
             ),
           }}
-        />
+        /> */}
         <Tab.Screen
-          name="Hospital"
+          name="Hospitals"
           component={HospitalStackScreen}
           options={{
             tabBarIcon: ({ color }) => (

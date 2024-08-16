@@ -232,7 +232,10 @@ const HomeScreen = ({ navigation }: any) => {
           </View>
           <>
             {BloodTest.slice(0, 3).map((item: any, id: number) => (
-              <View className="bg-gray-100 w-full h-36 rounded-md my-2">
+              <View
+                className="bg-gray-100 w-full h-36 rounded-md my-2"
+                key={id}
+              >
                 <View className="flex flex-row w-full h-full items-center justify-around">
                   <Image
                     className="h-full w-[40%] rounded-md"

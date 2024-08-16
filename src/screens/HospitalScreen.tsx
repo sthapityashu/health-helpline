@@ -1,19 +1,29 @@
 // Defaults
 import React from "react";
 import { View, ScrollView, TouchableOpacity, Image, Text } from "react-native";
+// import { IMAGE_URL } from "react-native-dotenv";
 
 // Components
 import { Container, SearchInput } from "@components/index";
+import { useHealthCentersApi } from "stores";
+
+// import useSafeParseJson from "@hooks/useSafeParseJson";
 
 const HospitalScreen = ({ navigation }: any) => {
   // States
   const [text, setText] = React.useState("");
 
+  // Fetch API
+  const { getHealthCenters } = useHealthCentersApi();
+
+  const healthCenters = getHealthCenters?.centers;
+  console.log("HealthCenters", healthCenters);
+
   return (
     <Container>
       <SearchInput />
 
-      <View className="flex flex-row items-center justify-between">
+      {/* <View className="flex flex-row items-center justify-between">
         <Text className="text-xl font-bold">Recently Visited</Text>
       </View>
       <ScrollView
@@ -38,132 +48,45 @@ const HospitalScreen = ({ navigation }: any) => {
             <Text className="text-center">Grande International</Text>
           </View>
         </View>
-      </ScrollView>
+      </ScrollView> */}
       <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
         <>
-          <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
-            <View className="bg-gray-100 w-full h-28 rounded-md my-2">
-              <View className="flex flex-row items-center justify-start p-4">
-                <Image
-                  className="h-20 w-20 rounded-md"
-                  source={{
-                    uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
-                  }}
-                />
-                <View className="flex-1 ml-4">
-                  <Text className="text-xl font-bold">Alka Hospital</Text>
-                  <Text className="text-lg">Jawalakhel, Lalitpur</Text>
-                  <Text className="font-semibold">
-                    01,1237483 +977 9876567384
-                  </Text>
+          {healthCenters?.map((centers: any, idx: any) => (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("DoctorScreen", {
+                  hospitalId: centers?.clinic_id,
+                  slug: centers?.slug,
+                })
+              }
+              key={idx}
+            >
+              <View className="bg-gray-100 w-full h-auto rounded-md my-2">
+                <View className="flex flex-row items-center justify-start p-4">
+                  <Image
+                    className="h-20 w-20 rounded-md"
+                    source={{
+                      uri: `${
+                        "https://healthhelpline.com.np/assets/upload/clinic-img/" +
+                        centers?.brand_logo
+                      }`,
+                    }}
+                  />
+                  <View className="flex-1 ml-4">
+                    <Text className="text-xl font-bold line-clamp-2">
+                      {centers?.name}
+                    </Text>
+                    <Text className="text-lg line-clamp-1">
+                      {centers?.address}
+                    </Text>
+                    <Text className="font-semibold">{centers?.landline}</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          ))}
 
-          <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
-            <View className="bg-gray-100 w-full h-28 rounded-md my-2">
-              <View className="flex flex-row items-center justify-start p-4">
-                <Image
-                  className="h-20 w-20 rounded-md"
-                  source={{
-                    uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
-                  }}
-                />
-                <View className="flex-1 ml-4">
-                  <Text className="text-xl font-bold">Teaching Hospital</Text>
-                  <Text className="text-lg">Maharajgunj, Kathmandu</Text>
-                  <Text className="font-semibold">
-                    01,1237483 +977 9876567384
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
-            <View className="bg-gray-100 w-full h-28 rounded-md my-2">
-              <View className="flex flex-row items-center justify-start p-4">
-                <Image
-                  className="h-20 w-20 rounded-md"
-                  source={{
-                    uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
-                  }}
-                />
-                <View className="flex-1 ml-4">
-                  <Text className="text-xl font-bold">
-                    Norvic International Hospital
-                  </Text>
-                  <Text className="text-lg">Thapathali, Kathmandu</Text>
-                  <Text className="font-semibold">
-                    01,1237483 +977 9876567384
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
-            <View className="bg-gray-100 w-full h-28 rounded-md my-2">
-              <View className="flex flex-row items-center justify-start p-4">
-                <Image
-                  className="h-20 w-20 rounded-md"
-                  source={{
-                    uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
-                  }}
-                />
-                <View className="flex-1 ml-4">
-                  <Text className="text-xl font-bold">
-                    Grande International Hospital
-                  </Text>
-                  <Text className="text-lg">Dhapasi, Kathmandu</Text>
-                  <Text className="font-semibold">
-                    01,1237483 +977 9876567384
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
-            <View className="bg-gray-100 w-full h-28 rounded-md my-2">
-              <View className="flex flex-row items-center justify-start p-4">
-                <Image
-                  className="h-20 w-20 rounded-md"
-                  source={{
-                    uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
-                  }}
-                />
-                <View className="flex-1 ml-4">
-                  <Text className="text-xl font-bold">Bir Hospital</Text>
-                  <Text className="text-lg">Tundikhel, Kathmandu</Text>
-                  <Text className="font-semibold">
-                    01,1237483 +977 9876567384
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => navigation.navigate("DoctorScreen")}>
-            <View className="bg-gray-100 w-full h-28 rounded-md my-2">
-              <View className="flex flex-row items-center justify-start p-4">
-                <Image
-                  className="h-20 w-20 rounded-md"
-                  source={{
-                    uri: "https://cdn-icons-png.freepik.com/512/4320/4320350.png",
-                  }}
-                />
-                <View className="flex-1 ml-4">
-                  <Text className="text-xl font-bold">B & B Hospital</Text>
-                  <Text className="text-lg">Gwarko, Lalitpur</Text>
-                  <Text className="font-semibold">
-                    01,1237483 +977 9876567384
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </TouchableOpacity>
+       
         </>
       </ScrollView>
     </Container>

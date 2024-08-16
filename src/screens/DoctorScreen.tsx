@@ -5,8 +5,17 @@ import { Avatar } from "react-native-paper";
 
 // Components
 import { Container, SearchInput } from "@components/index";
+import { useDoctorsApi } from "stores";
 
-const DoctorScreen = ({ navigation }: any) => {
+const DoctorScreen = ({ navigation, route }: any) => {
+  const { hospitalId, slug } = route.params;
+
+  const { getDoctors } = useDoctorsApi(slug);
+
+  const DOCTOR_IMG_PATH = getDoctors?.doctor_img_path;
+
+  console.log("Doctors List", getDoctors);
+
   return (
     <Container>
       <SearchInput />
@@ -90,153 +99,31 @@ const DoctorScreen = ({ navigation }: any) => {
 
         {/* Overall List Section */}
         <>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("AppointmentScreen")}
-          >
-            <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-              <View className="flex flex-row w-full h-full items-center justify-around py-3">
-                <Image
-                  className="h-full w-32 rounded-md"
-                  source={{
-                    uri: "https://thumbs.dreamstime.com/b/young-smiling-old-man-doctor-medical-specialist-medicine-concept-cute-d-icon-people-character-illustration-cartoon-minimal-young-279139332.jpg",
-                  }}
-                />
-                <View>
-                  <Text className="text-xl font-bold">Dr. Yashu Sthapit</Text>
-                  <Text>Neuro Surgeon</Text>
-                  <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                    <Avatar.Icon
-                      icon="star"
-                      color="#FFD700"
-                      className="bg-transparent px-0"
-                      size={32}
-                    />
-                    <Text>4.8 (4,278 reviews)</Text>
+          {getDoctors?.doctors?.map((doctorList: any, idx: number) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("AppointmentScreen")}
+              key={idx}
+            >
+              <View className="bg-gray-100 w-full h-auto rounded-md my-2">
+                <View className="flex flex-row items-center justify-start p-4">
+                  <Image
+                    className="h-20 w-20 rounded-md"
+                    source={{
+                      uri: `https://picsum.photos/200`,
+                    }}
+                  />
+                  <View className="flex-1 ml-4">
+                    <Text className="text-xl font-bold line-clamp-2">
+                      {doctorList?.firstname + " " + doctorList?.lastname}
+                    </Text>
+                    <Text className="text-lg line-clamp-1">
+                      {doctorList?.departments}
+                    </Text>
                   </View>
                 </View>
               </View>
-            </View>
-          </TouchableOpacity>
-
-          <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-            <View className="flex flex-row w-full h-full items-center justify-around py-3">
-              <Image
-                className="h-full w-32 rounded-md"
-                source={{
-                  uri: "https://i.pinimg.com/736x/41/74/fa/4174fad3ab126ebcb3d977795400c854.jpg",
-                }}
-              />
-              <View>
-                <Text className="text-xl font-bold">Dr. Udip Yakha Rai</Text>
-                <Text>Radiologis</Text>
-                <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                  <Avatar.Icon
-                    icon="star"
-                    color="#FFD700"
-                    className="bg-transparent px-0"
-                    size={32}
-                  />
-                  <Text>4.8 (4,278 reviews)</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-            <View className="flex flex-row w-full h-full items-center justify-around py-3">
-              <Image
-                className="h-full w-32 rounded-md"
-                source={{
-                  uri: "https://i.pinimg.com/736x/41/74/fa/4174fad3ab126ebcb3d977795400c854.jpg",
-                }}
-              />
-              <View>
-                <Text className="text-xl font-bold">Dr. Udip Yakha Rai</Text>
-                <Text>Radiologis</Text>
-                <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                  <Avatar.Icon
-                    icon="star"
-                    color="#FFD700"
-                    className="bg-transparent px-0"
-                    size={32}
-                  />
-                  <Text>4.8 (4,278 reviews)</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-            <View className="flex flex-row w-full h-full items-center justify-around py-3">
-              <Image
-                className="h-full w-32 rounded-md"
-                source={{
-                  uri: "https://i.pinimg.com/736x/41/74/fa/4174fad3ab126ebcb3d977795400c854.jpg",
-                }}
-              />
-              <View>
-                <Text className="text-xl font-bold">Dr. Udip Yakha Rai</Text>
-                <Text>Radiologis</Text>
-                <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                  <Avatar.Icon
-                    icon="star"
-                    color="#FFD700"
-                    className="bg-transparent px-0"
-                    size={32}
-                  />
-                  <Text>4.8 (4,278 reviews)</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-            <View className="flex flex-row w-full h-full items-center justify-around py-3">
-              <Image
-                className="h-full w-32 rounded-md"
-                source={{
-                  uri: "https://i.pinimg.com/736x/41/74/fa/4174fad3ab126ebcb3d977795400c854.jpg",
-                }}
-              />
-              <View>
-                <Text className="text-xl font-bold">Dr. Udip Yakha Rai</Text>
-                <Text>Radiologis</Text>
-                <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                  <Avatar.Icon
-                    icon="star"
-                    color="#FFD700"
-                    className="bg-transparent px-0"
-                    size={32}
-                  />
-                  <Text>4.8 (4,278 reviews)</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View className="bg-gray-100 w-full h-36 rounded-md my-2">
-            <View className="flex flex-row w-full h-full items-center justify-around py-3">
-              <Image
-                className="h-full w-32 rounded-md"
-                source={{
-                  uri: "https://i.pinimg.com/736x/41/74/fa/4174fad3ab126ebcb3d977795400c854.jpg",
-                }}
-              />
-              <View>
-                <Text className="text-xl font-bold">Dr. Udip Yakha Rai</Text>
-                <Text>Radiologis</Text>
-                <View className="flex flex-row items-center justify-start bg-gray-200 rounded-md my-2">
-                  <Avatar.Icon
-                    icon="star"
-                    color="#FFD700"
-                    className="bg-transparent px-0"
-                    size={32}
-                  />
-                  <Text>4.8 (4,278 reviews)</Text>
-                </View>
-              </View>
-            </View>
-          </View>
+            </TouchableOpacity>
+          ))}
         </>
       </ScrollView>
     </Container>
