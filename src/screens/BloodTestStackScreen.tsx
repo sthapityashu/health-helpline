@@ -14,10 +14,21 @@ const BloodTestStackScreen = () => {
         cardStyle: { backgroundColor: "white" },
       }}
     >
-      <BloodTestStack.Screen name="BloodTestScreen" component={BloodTestScreen} />
+      <BloodTestStack.Screen
+        name="BloodTestScreen"
+        component={BloodTestScreen}
+      />
       <BloodTestStack.Screen
         name="BloodTestListScreen"
         component={BloodTestListScreen}
+        options={{
+          headerShown: true,
+          headerTitle: "List",
+          headerTintColor: "white",
+          headerStyle: {
+            backgroundColor: "#01B9EB",
+          },
+        }}
       />
     </BloodTestStack.Navigator>
   );
