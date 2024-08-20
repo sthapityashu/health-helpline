@@ -1,132 +1,139 @@
-// Defaults
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
-import { Avatar } from "react-native-paper";
 
 // Components
 import { Container, SearchInput } from "@components/index";
 import { useDoctorsApi } from "stores";
+import useSearchApi from "stores/useSearchApi";
 
 const DoctorScreen = ({ navigation, route }: any) => {
   const { hospitalId, slug } = route.params;
 
-  const { getDoctors } = useDoctorsApi(slug);
+  // States
+  const [departmentId, setDepartmentId] = useState<any>(null);
+  const [filteredDoctors, setFilteredDoctors] = useState([]);
+  console.log("hostipal Id", hospitalId);
+  console.log("departmentId", hospitalId);
+
+  // Fetch API
+  const { getDoctors, getDoctorssFetching } = useDoctorsApi(slug);
+  const { getSearchData } = useSearchApi(departmentId, hospitalId);
 
   const DOCTOR_IMG_PATH = getDoctors?.doctor_img_path;
 
-  console.log("Doctors List", getDoctors);
+  console.log("getSearchData", getSearchData);
+  console.log("filteredDoctors", filteredDoctors);
+
+  // Filter doctors based on selected department
+  useEffect(() => {
+    if (departmentId) {
+      const filtered = getSearchData?.doctors?.filter(
+        (doctor: any) => doctor?.department_id === departmentId
+      );
+      setFilteredDoctors(filtered);
+    } else {
+      setFilteredDoctors(getDoctors?.doctors);
+    }
+    console.log("getSearchData---------->", getSearchData?.doctors);
+  }, [departmentId, getDoctors]);
+  const colorList = [
+    "bg-green-100",
+    "bg-blue-100",
+    "bg-slate-100",
+    "bg-red-100",
+    "bg-orange-100",
+  ];
+
+  const getItemColor = (index: number) => colorList[index % colorList?.length];
+
+  const getDeptId = (id: number) => {
+    setDepartmentId(id);
+  };
 
   return (
-    <Container>
-      <SearchInput />
+    <>
+      {getDoctorssFetching ? (
+        <Text>Loading...</Text>
+      ) : (
+        <Container>
+          <SearchInput />
 
-      <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
-        {/* Recommendation Section */}
-        <View>
-          <View className="flex flex-row items-center justify-between">
-            <Text className="text-xl font-bold">Recommended Docotors</Text>
+          {/* Recommendation Section */}
+          <View className="mb-2">
+            <View className="flex flex-row items-center justify-between mb-2">
+              <Text className="text-xl font-bold">Departments</Text>
+            </View>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              {/* Speciality Section */}
+              <View className="flex flex-row justify-between items-center gap-2">
+                <TouchableOpacity onPress={() => setDepartmentId(null)}>
+                  <View className={`bg-blue-100 p-2 rounded-2xl`}>
+                    <Text className={`text-center capitalize`}>All</Text>
+                  </View>
+                </TouchableOpacity>
+                {getDoctors?.department?.map((item: any, idx: number) => (
+                  <TouchableOpacity
+                    key={idx}
+                    onPress={() => getDeptId(item?.department_id)}
+                  >
+                    <View className={`${getItemColor(idx)} p-2 rounded-2xl`}>
+                      <Text className={`text-center capitalize`}>
+                        {item?.department_name}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
           </View>
-          <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            className="h-[100px]"
-          >
-            {/* Speciality Section */}
-            <View className="flex flex-row justify-between items-center my-2 gap-3 mt-1">
-              <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
-                <View className="w-16 h-16 flex items-center justify-center bg-green-300 rounded-full">
-                  <Image
-                    className="h-[50px] w-[50px]"
-                    source={{
-                      uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
-                    }}
-                  />
-                </View>
-                <Text className="h-10 text-center pt-1">Dr. Yashu Sthapit</Text>
-              </View>
 
-              <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
-                <View className="w-16 h-16 flex items-center justify-center bg-blue-300 rounded-full">
-                  <Image
-                    className="h-[50px] w-[50px]"
-                    source={{
-                      uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
-                    }}
-                  />
-                </View>
-                <Text className="h-10 text-center pt-1">Dr. Udip Rai</Text>
+          {/* Overall List Section */}
+          <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
+            <View>
+              <View className="flex flex-row items-center justify-between mb-2">
+                <Text className="text-xl font-bold">All Doctors</Text>
               </View>
-
-              <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
-                <View className="w-16 h-16 flex items-center justify-center bg-slate-300 rounded-full">
-                  <Image
-                    className="h-[50px] w-[50px]"
-                    source={{
-                      uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
-                    }}
-                  />
-                </View>
-                <Text className="h-10 text-center pt-1">
-                  Dr. Bikesh Maharjan
-                </Text>
-              </View>
-
-              <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
-                <View className="w-16 h-16 flex items-center justify-center bg-red-300 rounded-full">
-                  <Image
-                    className="h-[50px] w-[50px]"
-                    source={{
-                      uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
-                    }}
-                  />
-                </View>
-                <Text className="h-10 text-center pt-1">Dr. Santosh Thapa</Text>
-              </View>
-              <View className="flex items-center justify-center  p-2 rounded-lg w-[100px] h-full">
-                <View className="w-16 h-16 flex items-center justify-center bg-orange-300 rounded-full">
-                  <Image
-                    className="h-[50px] w-[50px]"
-                    source={{
-                      uri: "https://png.pngtree.com/png-clipart/20220911/original/pngtree-male-doctor-avatar-icon-illustration-png-image_8537702.png",
-                    }}
-                  />
-                </View>
-                <Text className="h-10 text-center pt-1">Dr. Ram Maharjan</Text>
-              </View>
+              {filteredDoctors?.map((doctorList: any, idx: number) => (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("AppointmentScreen", {
+                      clinicId: doctorList?.clinic_id,
+                      doctorId: doctorList?.doctor_id,
+                    })
+                  }
+                  key={idx}
+                >
+                  <View className="bg-gray-100 w-full h-auto rounded-md my-2">
+                    <View className="flex flex-row items-center justify-start p-4">
+                      <Image
+                        className="h-20 w-20 rounded-full bg-slate-300 object-cover"
+                        source={{
+                          uri: `${DOCTOR_IMG_PATH + doctorList?.profile_img}`,
+                        }}
+                      />
+                      <View className="flex-1 ml-4">
+                        <Text className="text-xl font-bold capitalize">
+                          {doctorList?.firstname + " " + doctorList?.lastname}
+                        </Text>
+                        <Text className="text-lg ">
+                          {doctorList?.departments}
+                        </Text>
+                        <Text className="text-lg ">
+                          {`NMC NO. ${doctorList?.council_regno}`}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))}
             </View>
           </ScrollView>
-        </View>
-
-        {/* Overall List Section */}
-        <>
-          {getDoctors?.doctors?.map((doctorList: any, idx: number) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("AppointmentScreen")}
-              key={idx}
-            >
-              <View className="bg-gray-100 w-full h-auto rounded-md my-2">
-                <View className="flex flex-row items-center justify-start p-4">
-                  <Image
-                    className="h-20 w-20 rounded-md"
-                    source={{
-                      uri: `https://picsum.photos/200`,
-                    }}
-                  />
-                  <View className="flex-1 ml-4">
-                    <Text className="text-xl font-bold line-clamp-2">
-                      {doctorList?.firstname + " " + doctorList?.lastname}
-                    </Text>
-                    <Text className="text-lg line-clamp-1">
-                      {doctorList?.departments}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </>
-      </ScrollView>
-    </Container>
+        </Container>
+      )}
+    </>
   );
 };
 

@@ -14,7 +14,8 @@ const HospitalScreen = ({ navigation }: any) => {
   const [text, setText] = React.useState("");
 
   // Fetch API
-  const { getHealthCenters } = useHealthCentersApi();
+  const { getHealthCenters, getHealthCentersFetching } = useHealthCentersApi();
+  
 
   const healthCenters = getHealthCenters?.centers;
   console.log("HealthCenters", healthCenters);
@@ -51,42 +52,48 @@ const HospitalScreen = ({ navigation }: any) => {
       </ScrollView> */}
       <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
         <>
-          {healthCenters?.map((centers: any, idx: any) => (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("DoctorScreen", {
-                  hospitalId: centers?.clinic_id,
-                  slug: centers?.slug,
-                })
-              }
-              key={idx}
-            >
-              <View className="bg-gray-100 w-full h-auto rounded-md my-2">
-                <View className="flex flex-row items-center justify-start p-4">
-                  <Image
-                    className="h-20 w-20 rounded-md"
-                    source={{
-                      uri: `${
-                        "https://healthhelpline.com.np/assets/upload/clinic-img/" +
-                        centers?.brand_logo
-                      }`,
-                    }}
-                  />
-                  <View className="flex-1 ml-4">
-                    <Text className="text-xl font-bold line-clamp-2">
-                      {centers?.name}
-                    </Text>
-                    <Text className="text-lg line-clamp-1">
-                      {centers?.address}
-                    </Text>
-                    <Text className="font-semibold">{centers?.landline}</Text>
+          {getHealthCentersFetching ? (
+            <Text>Loading...</Text>
+          ) : (
+            <>
+              {healthCenters?.map((centers: any, idx: any) => (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("DoctorScreen", {
+                      hospitalId: centers?.clinic_id,
+                      slug: centers?.slug,
+                    })
+                  }
+                  key={idx}
+                >
+                  <View className="bg-gray-100 w-full h-auto rounded-md my-2">
+                    <View className="flex flex-row items-center justify-start p-4">
+                      <Image
+                        className="h-20 w-20 rounded-md"
+                        source={{
+                          uri: `${
+                            "https://healthhelpline.com.np/assets/upload/clinic-img/" +
+                            centers?.brand_logo
+                          }`,
+                        }}
+                      />
+                      <View className="flex-1 ml-4">
+                        <Text className="text-xl font-bold ">
+                          {centers?.name}
+                        </Text>
+                        <Text className="text-lg ">
+                          {centers?.address}
+                        </Text>
+                        <Text className="font-semibold">
+                          {centers?.landline}
+                        </Text>
+                      </View>
+                    </View>
                   </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
-
-       
+                </TouchableOpacity>
+              ))}
+            </>
+          )}
         </>
       </ScrollView>
     </Container>

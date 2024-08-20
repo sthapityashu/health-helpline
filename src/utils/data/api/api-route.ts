@@ -5,3 +5,7 @@ export const HEALTHCENTER_API = () => ({
 export const DOCTORS_API = (slug: string) => ({
   get: `/healthcenters/doctor/${slug}`,
 });
+
+export const SEARCH_API = (departmentId: number, clinicId: number) => ({
+  get: `/healthcenters/search-doctor/${departmentId}/${clinicId}`,
+});

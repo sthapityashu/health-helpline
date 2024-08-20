@@ -5,7 +5,11 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import DropDown from "react-native-paper-dropdown";
 import { Container } from "../components";
 
-const AppointmentScreen = () => {
+const AppointmentScreen = ({ route }: any) => {
+  // Routing
+  const { clinicId, doctorId } = route.params;
+
+  console.log("Clinic Id --->", clinicId, "Doctor ID --->", doctorId);
   // States
   const [hospitalTime, setHospitalTime] = useState("");
   const [date, setDate] = useState<any>(null);
@@ -26,7 +30,7 @@ const AppointmentScreen = () => {
     const currentDate = selectedDate || date;
     setHospitalTime("");
     setShowDatePicker(false);
-    setDate(currentDate); 
+    setDate(currentDate);
   };
 
   const handleTimeChange = (selectedTime: any) => {
