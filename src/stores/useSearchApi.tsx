@@ -11,6 +11,7 @@ const useSearchApi = (departmentId: number, clinicId: number) => {
   } = useQuery({
     queryKey: ["useSearchApi", departmentId, clinicId],
     queryFn: () => apiQuery({ route: SEARCH_API(departmentId, clinicId).get }),
+    enabled: !!departmentId && !!clinicId,
   });
 
   return {

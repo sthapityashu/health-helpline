@@ -11,9 +11,8 @@ const DoctorScreen = ({ navigation, route }: any) => {
 
   // States
   const [departmentId, setDepartmentId] = useState<any>(null);
+  const [departmentName, setDepartmentName] = useState<any>(null);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
-  console.log("hostipal Id", hospitalId);
-  console.log("departmentId", hospitalId);
 
   // Fetch API
   const { getDoctors, getDoctorssFetching } = useDoctorsApi(slug);
@@ -34,7 +33,6 @@ const DoctorScreen = ({ navigation, route }: any) => {
     } else {
       setFilteredDoctors(getDoctors?.doctors);
     }
-    console.log("getSearchData---------->", getSearchData?.doctors);
   }, [departmentId, getDoctors]);
   const colorList = [
     "bg-green-100",
@@ -46,8 +44,9 @@ const DoctorScreen = ({ navigation, route }: any) => {
 
   const getItemColor = (index: number) => colorList[index % colorList?.length];
 
-  const getDeptId = (id: number) => {
+  const getDeptId = (id: number, name: string) => {
     setDepartmentId(id);
+    setDepartmentName(name);
   };
 
   return (
@@ -69,7 +68,12 @@ const DoctorScreen = ({ navigation, route }: any) => {
             >
               {/* Speciality Section */}
               <View className="flex flex-row justify-between items-center gap-2">
-                <TouchableOpacity onPress={() => setDepartmentId(null)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setDepartmentId(null);
+                    setDepartmentName(null);
+                  }}
+                >
                   <View className={`bg-blue-100 p-2 rounded-2xl`}>
                     <Text className={`text-center capitalize`}>All</Text>
                   </View>
@@ -77,7 +81,9 @@ const DoctorScreen = ({ navigation, route }: any) => {
                 {getDoctors?.department?.map((item: any, idx: number) => (
                   <TouchableOpacity
                     key={idx}
-                    onPress={() => getDeptId(item?.department_id)}
+                    onPress={() =>
+                      getDeptId(item?.department_id, item?.department_name)
+                    }
                   >
                     <View className={`${getItemColor(idx)} p-2 rounded-2xl`}>
                       <Text className={`text-center capitalize`}>
@@ -94,7 +100,9 @@ const DoctorScreen = ({ navigation, route }: any) => {
           <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
             <View>
               <View className="flex flex-row items-center justify-between mb-2">
-                <Text className="text-xl font-bold">All Doctors</Text>
+                <Text className="text-xl font-bold">
+                  {departmentName ? departmentName : "All Doctors"}
+                </Text>
               </View>
               {filteredDoctors?.map((doctorList: any, idx: number) => (
                 <TouchableOpacity

@@ -14,8 +14,9 @@ const HospitalScreen = ({ navigation }: any) => {
   const [text, setText] = React.useState("");
 
   // Fetch API
+  const api = useHealthCentersApi();
+  console.log("api", api);
   const { getHealthCenters, getHealthCentersFetching } = useHealthCentersApi();
-  
 
   const healthCenters = getHealthCenters?.centers;
   console.log("HealthCenters", healthCenters);
@@ -81,9 +82,7 @@ const HospitalScreen = ({ navigation }: any) => {
                         <Text className="text-xl font-bold ">
                           {centers?.name}
                         </Text>
-                        <Text className="text-lg ">
-                          {centers?.address}
-                        </Text>
+                        <Text className="text-lg ">{centers?.address}</Text>
                         <Text className="font-semibold">
                           {centers?.landline}
                         </Text>
