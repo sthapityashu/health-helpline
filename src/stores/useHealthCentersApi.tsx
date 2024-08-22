@@ -11,6 +11,7 @@ const useHealthCentersApi = () => {
   } = useQuery({
     queryKey: ["useHealthCentersApi"],
     queryFn: () => apiQuery({ route: HEALTHCENTER_API().get }),
+    // queryFn: () => apiQuery({ route: TEST_API().get }),
   });
   return {
     getHealthCenters,

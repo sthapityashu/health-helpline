@@ -16,6 +16,7 @@ const HospitalScreen = ({ navigation }: any) => {
   // Fetch API
   const api = useHealthCentersApi();
   console.log("api", api);
+
   const { getHealthCenters, getHealthCentersFetching } = useHealthCentersApi();
 
   const healthCenters = getHealthCenters?.centers;
