@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { HEALTHCENTER_API } from "@utils/data/api/api-route";
+import { HEALTHCENTER_API, TEST_API } from "@utils/data/api/api-route";
 import { apiQuery } from "@utils/method/api-method";
 
 const useHealthCentersApi = () => {

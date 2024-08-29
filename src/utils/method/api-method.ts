@@ -57,7 +57,7 @@ export const apiQuery = async (props: ApiQuerySchema) => {
       },
       data: formData, // Pass formData as the request data
     });
-
+    console.log("response,response", response);
     return response.data;
   } catch (error: any) {
     throw new Error(JSON.stringify(getAxiosError(error)));

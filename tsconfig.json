@@ -10,7 +10,8 @@
       "@hooks/*": ["hooks/*"],
       "@screens/*": ["screens/*"],
       "@helpers/*": ["helpers/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@stores/*": ["stores/*"]
     }
   }
 }
