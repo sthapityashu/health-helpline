@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const HEALTHCENTER_API = () => ({
   get: `/healthcenters`,
 });
@@ -13,3 +15,21 @@ export const SEARCH_API = (departmentId: number, clinicId: number) => ({
 export const TEST_API = () => ({
   get: `/get_hospitals.php?state=NC`,
 });
+
+// export const HealthCenters_API = async () => {
+//   const url = "https://api.healthhelpline.com.np/healthcenters";
+//   const options = {
+//     method: "GET",
+//   };
+
+//   // const res = await axios.get(url);
+//   const res = await fetch(url, options);
+
+//   console.log("Response", res);
+
+//   if (!res.ok) {
+//     throw new Error("Failed to fetch movies");
+//   }
+//   const json = await res.json();
+//   return json;
+// };

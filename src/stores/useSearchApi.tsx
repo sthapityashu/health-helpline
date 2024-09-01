@@ -12,6 +12,7 @@ const useSearchApi = (departmentId: number, clinicId: number) => {
     queryKey: ["useSearchApi", departmentId, clinicId],
     queryFn: () => apiQuery({ route: SEARCH_API(departmentId, clinicId).get }),
     enabled: !!departmentId && !!clinicId,
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
   });
 
   return {

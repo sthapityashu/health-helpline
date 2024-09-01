@@ -9,7 +9,7 @@ const useDoctorssApi = (slug: string) => {
     isFetching: getDoctorssFetching,
     isRefetchError: getDoctorssFetchError,
   } = useQuery({
-    queryKey: ["useDoctorssApi", slug],
+    queryKey: ["useDoctorsApi", slug],
     queryFn: () => apiQuery({ route: DOCTORS_API(slug).get }),
   });
 

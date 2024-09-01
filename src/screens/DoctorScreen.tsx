@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
-
-// Components
+import React, { useEffect, useRef, useState } from "react";
+import {
+  ScrollView,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import { Container, SearchInput } from "@components/index";
 import { useDoctorsApi } from "stores";
 import useSearchApi from "stores/useSearchApi";
@@ -12,28 +18,31 @@ const DoctorScreen = ({ navigation, route }: any) => {
   // States
   const [departmentId, setDepartmentId] = useState<any>(null);
   const [departmentName, setDepartmentName] = useState<any>(null);
-  const [filteredDoctors, setFilteredDoctors] = useState([]);
+  const [selectedId, setSelectedId] = useState<any>();
 
   // Fetch API
   const { getDoctors, getDoctorssFetching } = useDoctorsApi(slug);
-  const { getSearchData } = useSearchApi(departmentId, hospitalId);
+  const { getSearchData } = useSearchApi(selectedId, hospitalId);
 
-  const DOCTOR_IMG_PATH = getDoctors?.doctor_img_path;
+  // const DOCTOR_IMG_PATH = getDoctors?.doctor_img_path;
 
-  console.log("getSearchData", getSearchData);
-  console.log("filteredDoctors", filteredDoctors);
+  // console.log("Doctors", getDoctors);
 
   // Filter doctors based on selected department
+  // const filteredDoctors = departmentId
+  //   ? getSearchData?.doctors
+  //   : getDoctors?.doctors;
+
+  const apiCallCountRef = useRef(0);
+  const isMounted = useRef(false);
+
   useEffect(() => {
-    if (departmentId) {
-      const filtered = getSearchData?.doctors?.filter(
-        (doctor: any) => doctor?.department_id === departmentId
-      );
-      setFilteredDoctors(filtered);
-    } else {
-      setFilteredDoctors(getDoctors?.doctors);
-    }
-  }, [departmentId, getDoctors]);
+    if (isMounted.current) return; // Skip if already mounted
+    console.log("API Call in Dcotor Screen:", apiCallCountRef.current);
+    isMounted.current = true; // Mark as mounted after the first call
+  }, []);
+
+  // return;
   const colorList = [
     "bg-green-100",
     "bg-blue-100",
@@ -42,62 +51,52 @@ const DoctorScreen = ({ navigation, route }: any) => {
     "bg-orange-100",
   ];
 
-  const getItemColor = (index: number) => colorList[index % colorList?.length];
+  // const getItemColor = (index: number) => colorList[index % colorList?.length];
 
-  const getDeptId = (id: number, name: string) => {
-    setDepartmentId(id);
-    setDepartmentName(name);
+  const getDoc = (id: number) => {
+    setSelectedId(id);
+    console.log("Get the Department ID", id);
   };
 
   return (
     <>
       {getDoctorssFetching ? (
-        <Text>Loading...</Text>
+        <View className="flex-1 items-center justify-center min-w-screen mx-auto">
+          <ActivityIndicator size="large" color="#01B9EB" />
+        </View>
       ) : (
         <Container>
           <SearchInput />
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {getDoctors?.department?.map((items: any, id: number) => (
+              <Pressable
+                key={id}
+                onPress={() => getDoc(items?.department_id)}
+                className="flex flex-row m-2"
+              >
+                <Text
+                  className={`p-2 ${
+                    selectedId === items.department_id
+                      ? "bg-green-200"
+                      : "bg-yellow-200"
+                  }`}
+                >
+                  {items?.department_name}
+                </Text>
+              </Pressable>
+            ))}
+          </ScrollView>
+
+          {getSearchData?.doctors?.map((depDoctor: any, id: number) => (
+            <View key={id} className="m-2">
+              <Text className="bg-green-200 p-2">{depDoctor?.firstname}</Text>
+            </View>
+          ))}
 
           {/* Recommendation Section */}
-          <View className="mb-2">
-            <View className="flex flex-row items-center justify-between mb-2">
-              <Text className="text-xl font-bold">Departments</Text>
-            </View>
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              {/* Speciality Section */}
-              <View className="flex flex-row justify-between items-center gap-2">
-                <TouchableOpacity
-                  onPress={() => {
-                    setDepartmentId(null);
-                    setDepartmentName(null);
-                  }}
-                >
-                  <View className={`bg-blue-100 p-2 rounded-2xl`}>
-                    <Text className={`text-center capitalize`}>All</Text>
-                  </View>
-                </TouchableOpacity>
-                {getDoctors?.department?.map((item: any, idx: number) => (
-                  <TouchableOpacity
-                    key={idx}
-                    onPress={() =>
-                      getDeptId(item?.department_id, item?.department_name)
-                    }
-                  >
-                    <View className={`${getItemColor(idx)} p-2 rounded-2xl`}>
-                      <Text className={`text-center capitalize`}>
-                        {item?.department_name}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </ScrollView>
-          </View>
 
           {/* Overall List Section */}
-          <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
+          {/* <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
             <View>
               <View className="flex flex-row items-center justify-between mb-2">
                 <Text className="text-xl font-bold">
@@ -138,7 +137,7 @@ const DoctorScreen = ({ navigation, route }: any) => {
                 </TouchableOpacity>
               ))}
             </View>
-          </ScrollView>
+          </ScrollView> */}
         </Container>
       )}
     </>

@@ -1,5 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { HEALTHCENTER_API, TEST_API } from "@utils/data/api/api-route";
+import {
+  HEALTHCENTER_API,
+  // TEST_API,
+  // HealthCenters_API,
+} from "@utils/data/api/api-route";
 import { apiQuery } from "@utils/method/api-method";
 
 const useHealthCentersApi = () => {
@@ -10,8 +14,8 @@ const useHealthCentersApi = () => {
     isRefetchError: getHealthCentersFetchError,
   } = useQuery({
     queryKey: ["useHealthCentersApi"],
+    // queryFn: () => HealthCenters_API,
     queryFn: () => apiQuery({ route: HEALTHCENTER_API().get }),
-    // queryFn: () => apiQuery({ route: TEST_API().get }),
   });
   return {
     getHealthCenters,

@@ -45,16 +45,16 @@ export const apiQuery = async (props: ApiQuerySchema) => {
     const response = await BASE_API({
       method: method ?? "get",
       url: route,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-        Referer: "https://api.healthhelpline.com.np/",
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": formData ? "multipart/form-data" : "application/json",
-        // Authorization: `Bearer ${auth?.access_token ?? ""}`,
-        // "X-Session-ID": auth?.session ?? "",
-        // Add other necessary headers
-      },
+      // headers: {
+      //   "User-Agent":
+      //     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      //   Referer: "https://api.healthhelpline.com.np/",
+      //   Accept: "application/json, text/plain, */*",
+      //   "Content-Type": formData ? "multipart/form-data" : "application/json",
+      //   // Authorization: `Bearer ${auth?.access_token ?? ""}`,
+      //   // "X-Session-ID": auth?.session ?? "",
+      //   // Add other necessary headers
+      // },
       data: formData, // Pass formData as the request data
     });
     console.log("response,response", response);

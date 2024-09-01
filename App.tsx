@@ -11,23 +11,14 @@ import {
   DoctorScreen,
 } from "./src/screens";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useReactQueryDevTools } from "@dev-plugins/react-query/build/useReactQueryDevTools";
 
 const Stack = createStackNavigator();
 
+const queryClient = new QueryClient({});
+
 export default function App() {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            retry: false,
-            // With SSR, we usually want to set some default staleTime
-            // above 0 to avoid refetching immediately on the client
-            staleTime: Infinity,
-          },
-        },
-      })
-  );
+  useReactQueryDevTools(queryClient);
   return (
     <QueryClientProvider client={queryClient}>
       <PaperProvider>
