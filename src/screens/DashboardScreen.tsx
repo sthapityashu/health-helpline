@@ -10,6 +10,8 @@ import DoctorScreen from "./DoctorScreen";
 import HospitalStackScreen from "./HospitalStackScreen";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import BloodTestStackScreen from "./BloodTestStackScreen";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -17,78 +19,41 @@ const DashboardScreen = ({ navigation }: any) => {
   const [index, setIndex] = useState(0);
   const [isNavBarVisible, setIsNavBarVisible] = useState(true);
 
-  // const routes = [
-  //   {
-  //     key: "home",
-  //     title: "Home",
-  //     focusedIcon: "home",
-  //     unfocusedIcon: "home-outline",
-  //   },
-  //   {
-  //     key: "doctor",
-  //     title: "Doctor",
-  //     focusedIcon: "account",
-  //     unfocusedIcon: "account-outline",
-  //   },
-  //   {
-  //     key: "hospital",
-  //     title: "Hospital",
-  //     focusedIcon: "home-city",
-  //     unfocusedIcon: "home-city-outline",
-  //   },
-  //   {
-  //     key: "appointment",
-  //     title: "Appointment",
-  //     focusedIcon: "calendar-check",
-  //     unfocusedIcon: "calendar-blank",
-  //   },
-  // ];
+  const routes = [
+    {
+      key: "home",
+      title: "Home",
+      focusedIcon: "home",
+      unfocusedIcon: "home-outline",
+    },
+    // {
+    //   key: "doctor",
+    //   title: "Doctor",
+    //   focusedIcon: "account",
+    //   unfocusedIcon: "account-outline",
+    // },
+    {
+      key: "hospital",
+      title: "Hospital",
+      focusedIcon: "home-city",
+      unfocusedIcon: "home-city-outline",
+    },
+    // {
+    //   key: "appointment",
+    //   title: "Appointment",
+    //   focusedIcon: "calendar-check",
+    //   unfocusedIcon: "calendar-blank",
+    // },
+  ];
 
-  // const renderScene = BottomNavigation.SceneMap({
-  //   home: HomeScreen,
-  //   doctor: DoctorScreen,
-  //   hospital: HospitalStackScreen,
-  //   appointment: AppointmentScreen,
-  // });
+  const renderScene = BottomNavigation.SceneMap({
+    home: HomeScreen,
+    // doctor: DoctorScreen,
+    hospital: HospitalStackScreen,
+    // appointment: AppointmentScreen,
+  });
 
-  // const currentTitle = routes[index].title;
-
-  // Get the current navigation state
-  const navigationState: any = useNavigationState((state) => state);
-
-  const getCurrentRouteName: any = (state: any) => {
-    const route = state.routes[state.index];
-
-    if (route.state) {
-      return getCurrentRouteName(route.state);
-    }
-    return route.name;
-  };
-
-  // console.log(
-  //   "getCurrentRouteName",
-  //   navigationState?.routes[navigationState?.routes?.length - 1]?.state?.routes
-  // );
-  const currentRouteName = getCurrentRouteName(navigationState);
-
-  useEffect(() => {
-    const shouldHideNavBar =
-      currentRouteName === "DoctorScreen" ||
-      currentRouteName === "AppointmentScreen";
-    setIsNavBarVisible(!shouldHideNavBar);
-  }, [currentRouteName]);
-
-  useEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: "none",
-      },
-    });
-    return () =>
-      navigation.getParent()?.setOptions({
-        tabBarStyle: undefined,
-      });
-  }, [navigation]);
+  const currentTitle = routes[index].title;
 
   return (
     <>
@@ -98,7 +63,7 @@ const DashboardScreen = ({ navigation }: any) => {
             <Appbar.Header className="px-6 bg-[#01B9EB] flex-row items-center justify-between">
               <View className="flex-col items-start">
                 <Text className="text-xl font-bold text-white">
-                  {/* {currentTitle} */}
+                  {currentTitle}
                 </Text>
               </View>
             </Appbar.Header>
@@ -108,7 +73,7 @@ const DashboardScreen = ({ navigation }: any) => {
                 <Text className="text-xl font-bold text-white">Hi, Yashu</Text>
                 <Text className="text-xs text-white">How are you?</Text>
               </View>
-              <TouchableOpacity onPress={() => alert("Profile Clicked")}>
+              {/* <TouchableOpacity onPress={() => alert("Profile Clicked")}>
                 <Avatar.Image
                   source={{
                     uri: "https://media.licdn.com/dms/image/D4D03AQEzximBza-Klw/profile-displayphoto-shrink_200_200/0/1718525400486?e=2147483647&v=beta&t=h_Tk6sQ-1G-4XzV6VeyG6X5LQslqWLq-ShnoKaLNaoE",
@@ -116,81 +81,47 @@ const DashboardScreen = ({ navigation }: any) => {
                   size={40}
                   className="ml-auto bg-white text-black"
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </Appbar.Header>
           )}
         </>
       )}
-
-      {/* <BottomNavigation
+      {/* 
+      <BottomNavigation
         navigationState={{ index, routes }}
         onIndexChange={setIndex}
         renderScene={renderScene}
         shifting={false}
-        
       /> */}
 
       <Tab.Navigator
-        activeColor="black"
+        activeColor="#01B9EB"
         inactiveColor="gray"
-        barStyle={{ backgroundColor: "white" }}
+        // barStyle={{ backgroundColor: "blue" }}
+        screenOptions={({ route }: any) => ({
+          tabBarIcon: ({ focused, color }: any) => {
+            let iconName;
+            let IconComponent: any;
+
+            if (route.name === "Home") {
+              iconName = focused ? "home" : "home-outline";
+              IconComponent = Ionicons;
+            } else if (route.name === "Hospitals") {
+              iconName = focused ? "hospital-box" : "hospital-box-outline";
+              IconComponent = MaterialCommunityIcons;
+            } else if (route.name === "Blood Test") {
+              iconName = focused ? "test-tube" : "test-tube-empty";
+              IconComponent = MaterialCommunityIcons;
+            }
+            // You can return any component that you like here!
+            return <IconComponent name={iconName} size={24} color={color} />;
+          },
+        })}
       >
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Avatar.Icon
-                icon="home"
-                size={30}
-                color={color}
-                className="bg-transparent"
-              />
-            ),
-          }}
-        />
-        {/* <Tab.Screen
-          name="Doctor"
-          component={DoctorScreen}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Avatar.Icon
-                icon="doctor"
-                size={30}
-                color={color}
-                className="bg-transparent"
-              />
-            ),
-          }}
-        /> */}
-        <Tab.Screen
-          name="Hospitals"
-          component={HospitalStackScreen}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Avatar.Icon
-                icon="hospital-building"
-                size={30}
-                color={color}
-                className="bg-transparent"
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Blood Test"
-          component={BloodTestStackScreen}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Avatar.Icon
-                icon="test-tube"
-                size={30}
-                color={color}
-                className="bg-transparent"
-              />
-            ),
-          }}
-        />
+        <Tab.Screen name="Home" component={HomeScreen} />
+        {/* <Tab.Screen name="Doctor" component={DoctorScreen} /> */}
+        <Tab.Screen name="Hospitals" component={HospitalStackScreen} />
+        <Tab.Screen name="Blood Test" component={BloodTestStackScreen} />
       </Tab.Navigator>
     </>
   );

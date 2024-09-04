@@ -16,16 +16,36 @@ import { Container } from "../components";
 import usePlatform from "../hooks/usePlatform";
 import BloodTestScreen from "./BloodTestScreen";
 import { BloodTest } from "@utils/data/constants/blood-test";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
 
 const HomeScreen = ({ navigation }: any) => {
   // Custom Hooks
   const { isIOS } = usePlatform();
+  const queryClient = useQueryClient();
+  const isFocused = useIsFocused();
 
+  const clearAllQueries = () => {
+    // Invalidate all queries
+    queryClient.clear();
+  };
+
+  const allQueries = queryClient.getQueryCache().getAll();
+
+  useEffect(() => {
+    if (isFocused) {
+      console.log("Clearing before ", allQueries);
+      clearAllQueries();
+    }
+  }, [isFocused]);
+
+  console.log("Clearing after", allQueries);
   return (
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Card Section */}
-        <View
+        {/* <View
           className={`w-full rounded-lg overflow-hidden ${
             isIOS ? "my-4" : "mb-4"
           } `}
@@ -53,17 +73,17 @@ const HomeScreen = ({ navigation }: any) => {
               />
             </View>
           </ImageBackground>
-        </View>
+        </View> */}
 
         <>
           {/* Doctor Speciality */}
-          <View className="flex flex-row items-center justify-between">
+          {/* <View className="flex flex-row items-center justify-between">
             <Text className="text-xl font-bold">Doctor Speciality</Text>
             <Text>See All</Text>
-          </View>
+          </View> */}
 
           {/* Speciality Section */}
-          <View className="flex flex-row justify-between items-center my-2">
+          {/* <View className="flex flex-row justify-between items-center my-2">
             <View className="flex items-center justify-center gap-2">
               <View className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center">
                 <Image
@@ -111,27 +131,27 @@ const HomeScreen = ({ navigation }: any) => {
               </View>
               <Text>Pediatric</Text>
             </View>
-          </View>
+          </View> */}
         </>
 
         <>
           {/* Recomendation */}
-          <View className="flex flex-row items-center justify-between my-2">
+          {/* <View className="flex flex-row items-center justify-between my-2">
             <Text className="text-xl font-bold">Recommended Doctor</Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("DoctorScreen")}
             >
               <Text>See All</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
 
           {/* Doctor */}
-          <ScrollView
+          {/* <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             className="h-[100px]"
           >
-            {/* Speciality Section */}
+            
             <View className="flex flex-row justify-between items-center my-2 gap-3 mt-1">
               <TouchableOpacity
                 onPress={() => navigation.navigate("AppointmentScreen")}
@@ -218,11 +238,11 @@ const HomeScreen = ({ navigation }: any) => {
                 </View>
               </TouchableOpacity>
             </View>
-          </ScrollView>
+          </ScrollView> */}
         </>
 
         <>
-          <View className="flex flex-row items-center justify-between my-2">
+          {/* <View className="flex flex-row items-center justify-between my-2">
             <Text className="text-xl font-bold">Blood Test</Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("BloodTestScreen")}
@@ -249,7 +269,7 @@ const HomeScreen = ({ navigation }: any) => {
                 </View>
               </View>
             ))}
-          </>
+          </> */}
         </>
       </ScrollView>
     </Container>
