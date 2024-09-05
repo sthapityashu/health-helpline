@@ -27,20 +27,17 @@ const HomeScreen = ({ navigation }: any) => {
   const isFocused = useIsFocused();
 
   const clearAllQueries = () => {
-    // Invalidate all queries
     queryClient.clear();
   };
 
-  const allQueries = queryClient.getQueryCache().getAll();
-
   useEffect(() => {
     if (isFocused) {
-      console.log("Clearing before ", allQueries);
-      clearAllQueries();
+      queryClient.invalidateQueries({
+        queryKey: ["useHealthCentersApi"],
+      });
     }
   }, [isFocused]);
 
-  console.log("Clearing after", allQueries);
   return (
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>

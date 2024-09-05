@@ -17,7 +17,7 @@ export default function StartScreen({ navigation }: any) {
             icon="arrow-right"
             iconColor={MD3Colors.secondary95}
             size={20}
-            onPress={() => navigation.navigate("LoginScreen")}
+            onPress={() => navigation.navigate("DashboardScreen")}
           />
         </View>
       </View>

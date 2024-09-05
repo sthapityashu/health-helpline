@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ScrollView,
   Text,
@@ -11,9 +11,13 @@ import {
 import { Container, SearchInput } from "@components/index";
 import { useDoctorsApi } from "stores";
 import useSearchApi from "stores/useSearchApi";
+import { useIsFocused } from "@react-navigation/native";
 
 const DoctorScreen = ({ navigation, route }: any) => {
   const { hospitalId, slug } = route.params;
+  const isFocused = useIsFocused();
+
+  console.log("Doctor Screen is focused", isFocused);
 
   // States
   const [departmentId, setDepartmentId] = useState<any>(null);
@@ -35,11 +39,16 @@ const DoctorScreen = ({ navigation, route }: any) => {
 
   const apiCallCountRef = useRef(0);
   const isMounted = useRef(false);
+  // useEffect(() => {
+  //   if (!isFocused) {
+  //     console.log("Effect triggered");
+  //     navigation.popToTop();
+  //   }
+  // }, [isFocused, navigation]);
 
-  useEffect(() => {
-    if (isMounted.current) return; // Skip if already mounted
-    console.log("API Call in Dcotor Screen:", apiCallCountRef.current);
-    isMounted.current = true; // Mark as mounted after the first call
+  const getDoc = useCallback((id: number) => {
+    setSelectedId(id);
+    console.log("Get the Department ID", id);
   }, []);
 
   // return;
@@ -52,11 +61,6 @@ const DoctorScreen = ({ navigation, route }: any) => {
   ];
 
   // const getItemColor = (index: number) => colorList[index % colorList?.length];
-
-  const getDoc = (id: number) => {
-    setSelectedId(id);
-    console.log("Get the Department ID", id);
-  };
 
   return (
     <>
