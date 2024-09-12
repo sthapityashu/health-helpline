@@ -37,7 +37,7 @@ export default function App() {
               headerShown: false,
             }}
           >
-            <Stack.Screen name="StartScreen" component={StartScreen} />
+            <Stack.Screen name="StartScreen" component={Start Screen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
             <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
@@ -64,6 +64,12 @@ export default function App() {
                 return (
                   <IconComponent name={iconName} size={24} color={color} />
                 );
+              },
+              // headerStyle:
+              headerTitle: "Doctor",
+              headerTintColor: "white",
+              headerStyle: {
+                backgroundColor: "#01B9EB",
               },
             })}
           >

@@ -42,7 +42,7 @@ const HomeScreen = ({ navigation }: any) => {
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Card Section */}
-        {/* <View
+        <View
           className={`w-full rounded-lg overflow-hidden ${
             isIOS ? "my-4" : "mb-4"
           } `}
@@ -70,7 +70,7 @@ const HomeScreen = ({ navigation }: any) => {
               />
             </View>
           </ImageBackground>
-        </View> */}
+        </View>
 
         <>
           {/* Doctor Speciality */}
