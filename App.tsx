@@ -69,7 +69,7 @@ export default function App() {
               headerTitle: "Doctor",
               headerTintColor: "white",
               headerStyle: {
-                backgroundColor: "#01B9EB",
+                backgroundColor: "#01B9EB", 
               },
             })}
           >

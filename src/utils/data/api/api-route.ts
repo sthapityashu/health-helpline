@@ -12,6 +12,10 @@ export const SEARCH_API = (departmentId: number, clinicId: number) => ({
   get: `/healthcenters/search-doctor/${departmentId}/${clinicId}`,
 });
 
+export const LAB_API = () => ({
+  get: `/healthcenters/labtest`,
+});
+
 export const TEST_API = () => ({
   get: `/get_hospitals.php?state=NC`,
 });
