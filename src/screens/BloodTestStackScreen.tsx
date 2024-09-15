@@ -1,11 +1,29 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
+import React, { useEffect } from "react";
 import BloodTestListScreen from "./BloodTestListScreen";
 import BloodTestScreen from "./BloodTestScreen";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import { useTabBar } from "@hooks/useTabBar";
 
 const BloodTestStack = createStackNavigator();
 
-const BloodTestStackScreen = () => {
+const BloodTestStackScreen = ({ route }: any) => {
+  // Get the currrent route name
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "BloodTestScreen";
+
+  // Context
+  const { setHideTabBar } = useTabBar();
+
+  useEffect(() => {
+    if (routeName === "BloodTestListScreen") {
+      setHideTabBar(true);
+    }
+    if (routeName === "BloodTestScreen") {
+      setHideTabBar(false);
+    }
+    return () => setHideTabBar(false);
+  }, [setHideTabBar, routeName]);
+
   return (
     <BloodTestStack.Navigator
       initialRouteName="BloodTestScreen"

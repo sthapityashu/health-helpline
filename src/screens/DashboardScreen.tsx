@@ -30,13 +30,13 @@ const HomeStack = () => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#01B9EB", // Set your header background color
+          backgroundColor: "#01B9EB",
         },
-        headerTintColor: "#fff", // Set your header text color
+        headerTintColor: "#fff",
         headerTitleStyle: {
-          fontWeight: "bold", // Customize the header title style
+          fontWeight: "bold",
         },
-        headerTitleAlign: "left", // Align header title to the left
+        headerTitleAlign: "left",
         headerRight: () => (
           <Container>
             <TouchableOpacity style={{ marginRight: 10 }}>
@@ -69,7 +69,7 @@ const HomeStack = () => {
 };
 
 const DashboardScreen = ({ navigation, route }: any) => {
-  const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
+  // const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
   const { hideTabBar, setHideTabBar } = useTabBar();
 
   console.log("HideTabBar", hideTabBar);
