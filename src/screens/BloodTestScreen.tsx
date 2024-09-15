@@ -57,7 +57,7 @@ const BloodTestScreen = ({ navigation }: any) => {
                     (index * 2 + subIndex) % backgroundColors.length;
                   return (
                     <TouchableOpacity
-                      className="h-[200px] w-[48%]"
+                      className="w-[48%]"
                       onPress={() =>
                         navigation.navigate("BloodTestListScreen", {
                           userId: item.id,
@@ -70,12 +70,7 @@ const BloodTestScreen = ({ navigation }: any) => {
                       <View
                         className={`${backgroundColors[colorIndex]} rounded-lg flex justify-start`}
                       >
-                        {/* <Image
-                          source={{ uri: item.image }}
-                          className="h-[70%] w-full rounded-t-lg"
-                          alt={item.category}
-                        /> */}
-                        <View className="h-[30%] flex items-center justify-center">
+                        <View className="flex items-center justify-center h-[40px]">
                           <Text className="text-[14px] px-2 text-center">
                             {item.title}
                           </Text>
