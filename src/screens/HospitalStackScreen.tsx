@@ -2,10 +2,30 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AppointmentScreen from "./AppointmentScreen";
 import DoctorScreen from "./DoctorScreen";
 import HospitalScreen from "./HospitalScreen";
+import { useTabBar } from "@hooks/useTabBar";
+import { useEffect } from "react";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 const HospitalStack = createStackNavigator();
 
-const HospitalStackScreen = () => {
+const HospitalStackScreen = ({ route }: any) => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
+  console.log("Hello", routeName);
+
+  const { setHideTabBar } = useTabBar();
+
+  useEffect(() => {
+    if (routeName !== "Home") {
+      setHideTabBar(true);
+    }
+    if (routeName === "Hospital") {
+      setHideTabBar(false);
+    }
+
+    // Show the tab bar again when leaving this stack
+    return () => setHideTabBar(false);
+  }, [setHideTabBar, routeName]);
+
   return (
     <HospitalStack.Navigator
       initialRouteName="HospitalScreen"
@@ -14,7 +34,19 @@ const HospitalStackScreen = () => {
         cardStyle: { backgroundColor: "white" },
       }}
     >
-      <HospitalStack.Screen name="Hospital" component={HospitalScreen} />
+      <HospitalStack.Screen
+        name="Hospital"
+        component={HospitalScreen}
+        options={{
+          headerShown: true,
+          headerTitle: "Hospitals",
+          headerTintColor: "white",
+          headerLeft: () => null,
+          headerStyle: {
+            backgroundColor: "#01B9EB",
+          },
+        }}
+      />
       <HospitalStack.Screen
         name="DoctorScreen"
         component={DoctorScreen}
@@ -44,4 +76,3 @@ const HospitalStackScreen = () => {
 };
 
 export default HospitalStackScreen;
- 

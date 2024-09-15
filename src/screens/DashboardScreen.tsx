@@ -6,6 +6,7 @@ import {
   useNavigationState,
   useIsFocused,
   getFocusedRouteNameFromRoute,
+  useFocusEffect,
 } from "@react-navigation/native";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -18,86 +19,69 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import CartScreen from "./CartScreen";
+import { useTabBar } from "@hooks/useTabBar";
+import Container from "@components/Container";
 
 const Tab = createMaterialBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const HomeStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#01B9EB", // Set your header background color
+        },
+        headerTintColor: "#fff", // Set your header text color
+        headerTitleStyle: {
+          fontWeight: "bold", // Customize the header title style
+        },
+        headerTitleAlign: "left", // Align header title to the left
+        headerRight: () => (
+          <Container>
+            <TouchableOpacity style={{ marginRight: 10 }}>
+              <Ionicons name="person-outline" size={24} color="#fff" />
+            </TouchableOpacity>
+          </Container>
+        ),
+        headerLeft: () => (
+          <Container>
+            <Text
+              style={{ color: "#fff", fontSize: 14, fontWeight: "semibold" }}
+            >
+              Welcome to
+            </Text>
+            <Text style={{ color: "#fff", fontSize: 22, fontWeight: "bold" }}>
+              Health Helpline
+            </Text>
+          </Container>
+        ),
+      }}
+    >
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ title: "" }}
+      />
+      {/* Add other screens if needed */}
+    </Stack.Navigator>
+  );
+};
 
 const DashboardScreen = ({ navigation, route }: any) => {
-  const [index, setIndex] = useState(0);
-  const [isNavBarVisible, setIsNavBarVisible] = useState(true);
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
+  const { hideTabBar, setHideTabBar } = useTabBar();
 
-  console.log("Route name", routeName);
-
-  // const routes = [
-  //   {
-  //     key: "home",
-  //     title: "Home",
-  //     focusedIcon: "home",
-  //     unfocusedIcon: "home-outline",
-  //   },
-  //   {
-  //     key: "doctor",
-  //     title: "Doctor",
-  //     focusedIcon: "account",
-  //     unfocusedIcon: "account-outline",
-  //   },
-  //   {
-  //     key: "hospital",
-  //     title: "Hospital",
-  //     focusedIcon: "home-city",
-  //     unfocusedIcon: "home-city-outline",
-  //   },
-  //   {
-  //     key: "appointment",
-  //     title: "Appointment",
-  //     focusedIcon: "calendar-check",
-  //     unfocusedIcon: "calendar-blank",
-  //   },
-  // ];
-
-  // const renderScene = BottomNavigation.SceneMap({
-  //   home: HomeScreen,
-  //   doctor: DoctorScreen,
-  //   hospital: HospitalStackScreen,
-  //   appointment: AppointmentScreen,
-  // });
-
-  // // const currentTitle = routes[index].title;
+  console.log("HideTabBar", hideTabBar);
+  useFocusEffect(
+    React.useCallback(() => {
+      // Reset tab bar visibility when navigating back to the Home tab
+      setHideTabBar(false);
+    }, [setHideTabBar])
+  );
 
   return (
     <>
-      {/* {isNavBarVisible && (
-        <>
-          {routeName !== "Home" ? (
-            <Appbar.Header className="px-6 bg-[#01B9EB] flex-row items-center justify-between">
-              <View className="flex-col items-start">
-                <Text className="text-xl font-bold text-white">
-                  
-                </Text>
-              </View>
-            </Appbar.Header>
-          ) : (
-            <Appbar.Header className="px-6 bg-[#01B9EB] flex-row items-center justify-between">
-              <View className="flex-col items-start">
-                <Text className="text-xl font-bold text-white">Hi, Yashu</Text>
-                <Text className="text-xs text-white">How are you?</Text>
-              </View>
-
-              <TouchableOpacity onPress={() => alert("Profile Clicked")}>
-                <AntDesign name="user" size={24} color="white" />
-              </TouchableOpacity>
-            </Appbar.Header>
-          )}
-        </>
-      )} */}
-      {/* 
-      <BottomNavigation
-        navigationState={{ index, routes }}
-        onIndexChange={setIndex}
-        renderScene={renderScene}
-        shifting={false}
-      /> */}
-
       <Tab.Navigator
         activeColor="#01B9EB"
         inactiveColor="gray"
@@ -121,12 +105,14 @@ const DashboardScreen = ({ navigation, route }: any) => {
               iconName = focused ? "cart" : "cart-outline";
               IconComponent = Ionicons;
             }
-            // You can return any component that you like here!
+
             return <IconComponent name={iconName} size={24} color={color} />;
           },
         })}
+        barStyle={{ display: hideTabBar ? "none" : "flex" }}
+        keyboardHidesNavigationBar
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Home" component={HomeStack} />
         <Tab.Screen name="Hospitals" component={HospitalStackScreen} />
         <Tab.Screen name="Blood Test" component={BloodTestStackScreen} />
         <Tab.Screen name="Cart" component={CartScreen} />

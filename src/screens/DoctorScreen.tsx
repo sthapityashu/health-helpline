@@ -17,7 +17,7 @@ const DoctorScreen = ({ navigation, route }: any) => {
   const { hospitalId, slug } = route.params;
   const isFocused = useIsFocused();
 
-  console.log("Doctor Screen is focused", isFocused);
+  // console.log("Doctor Screen is focused", isFocused);
 
   // States
   const [departmentId, setDepartmentId] = useState<any>(null);

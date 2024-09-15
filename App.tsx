@@ -19,6 +19,7 @@ import HospitalStackScreen from "@screens/HospitalStackScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
+import { TabBarProvider } from "@hooks/useTabBar";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -31,18 +32,22 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <PaperProvider>
         <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="StartScreen"
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="StartScreen" component={StartScreen} />
-            {/* <Stack.Screen name="LoginScreen" component={LoginScreen} /> */}
-            {/* <Stack.Screen name="RegisterScreen" component={RegisterScreen} /> */}
-            <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
-          </Stack.Navigator>
-          {/* <Tab.Navigator
+          <TabBarProvider>
+            <Stack.Navigator
+              initialRouteName="StartScreen"
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name="StartScreen" component={StartScreen} />
+              {/* <Stack.Screen name="LoginScreen" component={LoginScreen} /> */}
+              {/* <Stack.Screen name="RegisterScreen" component={RegisterScreen} /> */}
+              <Stack.Screen
+                name="DashboardScreen"
+                component={DashboardScreen}
+              />
+            </Stack.Navigator>
+            {/* <Tab.Navigator
             activeColor="#01B9EB"
             inactiveColor="gray"
             screenOptions={({ route }: any) => ({
@@ -71,6 +76,7 @@ export default function App() {
             <Tab.Screen name="Hospitals" component={HospitalStackScreen} />
             <Tab.Screen name="Blood Test" component={BloodTestStackScreen} />
           </Tab.Navigator> */}
+          </TabBarProvider>
         </NavigationContainer>
       </PaperProvider>
     </QueryClientProvider>

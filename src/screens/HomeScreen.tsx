@@ -74,13 +74,13 @@ const HomeScreen = ({ navigation }: any) => {
 
         <>
           {/* Doctor Speciality */}
-          {/* <View className="flex flex-row items-center justify-between">
+          <View className="flex flex-row items-center justify-between">
             <Text className="text-xl font-bold">Doctor Speciality</Text>
             <Text>See All</Text>
-          </View> */}
+          </View>
 
           {/* Speciality Section */}
-          {/* <View className="flex flex-row justify-between items-center my-2">
+          <View className="flex flex-row justify-between items-center my-2">
             <View className="flex items-center justify-center gap-2">
               <View className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center">
                 <Image
@@ -128,27 +128,26 @@ const HomeScreen = ({ navigation }: any) => {
               </View>
               <Text>Pediatric</Text>
             </View>
-          </View> */}
+          </View>
         </>
 
         <>
           {/* Recomendation */}
-          {/* <View className="flex flex-row items-center justify-between my-2">
+          <View className="flex flex-row items-center justify-between my-2">
             <Text className="text-xl font-bold">Recommended Doctor</Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("DoctorScreen")}
             >
               <Text>See All</Text>
             </TouchableOpacity>
-          </View> */}
+          </View>
 
           {/* Doctor */}
-          {/* <ScrollView
+          <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             className="h-[100px]"
           >
-            
             <View className="flex flex-row justify-between items-center my-2 gap-3 mt-1">
               <TouchableOpacity
                 onPress={() => navigation.navigate("AppointmentScreen")}
@@ -235,11 +234,11 @@ const HomeScreen = ({ navigation }: any) => {
                 </View>
               </TouchableOpacity>
             </View>
-          </ScrollView> */}
+          </ScrollView>
         </>
 
         <>
-          {/* <View className="flex flex-row items-center justify-between my-2">
+          <View className="flex flex-row items-center justify-between my-2">
             <Text className="text-xl font-bold">Blood Test</Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("BloodTestScreen")}
@@ -266,7 +265,7 @@ const HomeScreen = ({ navigation }: any) => {
                 </View>
               </View>
             ))}
-          </> */}
+          </>
         </>
       </ScrollView>
     </Container>
