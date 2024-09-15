@@ -1,8 +1,13 @@
-import { createStackNavigator } from "@react-navigation/stack";
+// Defaults
 import React, { useEffect } from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+
+// Screens
 import BloodTestListScreen from "./BloodTestListScreen";
 import BloodTestScreen from "./BloodTestScreen";
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+
+// Hooks
 import { useTabBar } from "@hooks/useTabBar";
 
 const BloodTestStack = createStackNavigator();

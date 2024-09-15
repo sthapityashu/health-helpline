@@ -1,27 +1,25 @@
+// Defaults
 import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Appbar, Avatar, BottomNavigation } from "react-native-paper";
-import {
-  useNavigationState,
-  useIsFocused,
-  getFocusedRouteNameFromRoute,
-  useFocusEffect,
-} from "@react-navigation/native";
-
-import AntDesign from "@expo/vector-icons/AntDesign";
-// Screens
-import HomeScreen from "./HomeScreen";
-import DoctorScreen from "./DoctorScreen";
-import HospitalStackScreen from "./HospitalStackScreen";
-import BloodTestStackScreen from "./BloodTestStackScreen";
+import { useFocusEffect } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
+
+// Screens
+import HomeScreen from "./HomeScreen";
+import HospitalStackScreen from "./HospitalStackScreen";
+import BloodTestStackScreen from "./BloodTestStackScreen";
 import CartScreen from "./CartScreen";
+
+// Hooks
 import { useTabBar } from "@hooks/useTabBar";
+
+// Components
 import Container from "@components/Container";
 
+// Navigation Context
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 

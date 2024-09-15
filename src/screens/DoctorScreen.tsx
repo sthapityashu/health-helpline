@@ -1,3 +1,4 @@
+// Defaults
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ScrollView,
@@ -8,10 +9,14 @@ import {
   Pressable,
   ActivityIndicator,
 } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
+
+// Components
 import { Container, SearchInput } from "@components/index";
+
+// Stores
 import { useDoctorsApi } from "stores";
 import useSearchApi from "stores/useSearchApi";
-import { useIsFocused } from "@react-navigation/native";
 
 const DoctorScreen = ({ navigation, route }: any) => {
   const { hospitalId, slug } = route.params;

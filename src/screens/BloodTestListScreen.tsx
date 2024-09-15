@@ -12,8 +12,7 @@ import { useState } from "react";
 const BloodTestListScreen = ({ route }: any) => {
   // Get Id from navigation
   const { userId, name, sub } = route.params;
-  console.log("UserId", userId);
-  console.log("Sub Category", sub);
+
   // Track which item is expanded
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [list, setList] = useState<number | null>(null);
@@ -22,8 +21,6 @@ const BloodTestListScreen = ({ route }: any) => {
   const bloodTest = BloodTest.find((test: any) => test.testId === userId);
   // Function to toggle the expanded state
   const toggleExpand = (id: number, listId: number) => {
-    console.log("ID", id);
-    console.log("Expanded ID", expandedId);
     setList(listId);
     setExpandedId(expandedId === id ? null : id);
   };

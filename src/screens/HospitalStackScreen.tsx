@@ -1,17 +1,24 @@
+// Defaults
+import { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+
+// Screens
 import AppointmentScreen from "./AppointmentScreen";
 import DoctorScreen from "./DoctorScreen";
 import HospitalScreen from "./HospitalScreen";
-import { useTabBar } from "@hooks/useTabBar";
-import { useEffect } from "react";
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
+// Hooks
+import { useTabBar } from "@hooks/useTabBar";
+
+// Navigation context
 const HospitalStack = createStackNavigator();
 
 const HospitalStackScreen = ({ route }: any) => {
+  // Get the currrent route name
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
-  console.log("Hello", routeName);
 
+  // Context
   const { setHideTabBar } = useTabBar();
 
   useEffect(() => {
