@@ -17,18 +17,27 @@ const BloodTestStackScreen = () => {
       <BloodTestStack.Screen
         name="BloodTestScreen"
         component={BloodTestScreen}
-      />
-      <BloodTestStack.Screen
-        name="BloodTestListScreen"
-        component={BloodTestListScreen}
         options={{
           headerShown: true,
-          headerTitle: "List",
+          headerTitle: "Lab Test",
           headerTintColor: "white",
+          headerLeft: () => null,
           headerStyle: {
             backgroundColor: "#01B9EB",
           },
         }}
+      />
+      <BloodTestStack.Screen
+        name="BloodTestListScreen"
+        component={BloodTestListScreen}
+        options={({ route }: any) => ({
+          headerShown: true,
+          headerTitle: route?.params?.name, // Display the screen name
+          headerTintColor: "white",
+          headerStyle: {
+            backgroundColor: "#01B9EB",
+          },
+        })}
       />
     </BloodTestStack.Navigator>
   );

@@ -17,6 +17,7 @@ import BloodTestStackScreen from "./BloodTestStackScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
+import CartScreen from "./CartScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -25,10 +26,7 @@ const DashboardScreen = ({ navigation, route }: any) => {
   const [isNavBarVisible, setIsNavBarVisible] = useState(true);
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
 
-
   console.log("Route name", routeName);
-
-
 
   // const routes = [
   //   {
@@ -68,13 +66,13 @@ const DashboardScreen = ({ navigation, route }: any) => {
 
   return (
     <>
-      {isNavBarVisible && (
+      {/* {isNavBarVisible && (
         <>
           {routeName !== "Home" ? (
             <Appbar.Header className="px-6 bg-[#01B9EB] flex-row items-center justify-between">
               <View className="flex-col items-start">
                 <Text className="text-xl font-bold text-white">
-                  {/* {currentTitle} */}
+                  
                 </Text>
               </View>
             </Appbar.Header>
@@ -91,7 +89,7 @@ const DashboardScreen = ({ navigation, route }: any) => {
             </Appbar.Header>
           )}
         </>
-      )}
+      )} */}
       {/* 
       <BottomNavigation
         navigationState={{ index, routes }}
@@ -104,6 +102,7 @@ const DashboardScreen = ({ navigation, route }: any) => {
         activeColor="#01B9EB"
         inactiveColor="gray"
         // barStyle={{ backgroundColor: "blue" }}
+        shifting={true}
         screenOptions={({ route }: any) => ({
           tabBarIcon: ({ focused, color }: any) => {
             let iconName;
@@ -118,6 +117,9 @@ const DashboardScreen = ({ navigation, route }: any) => {
             } else if (route.name === "Blood Test") {
               iconName = focused ? "test-tube" : "test-tube-empty";
               IconComponent = MaterialCommunityIcons;
+            } else if (route.name === "Cart") {
+              iconName = focused ? "cart" : "cart-outline";
+              IconComponent = Ionicons;
             }
             // You can return any component that you like here!
             return <IconComponent name={iconName} size={24} color={color} />;
@@ -125,18 +127,9 @@ const DashboardScreen = ({ navigation, route }: any) => {
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
-        {/* <Tab.Screen name="Doctor" component={DoctorScreen} /> */}
-        <Tab.Screen
-          name="Hospitals"
-          component={HospitalStackScreen}
-          // options={{ tabBarLabel: "Hospitals" }}
-
-          // options={({ route }: any) => ({
-          //   tabBarVisible:
-          //     getFocusedRouteNameFromRoute(route) !== "DoctorScreen",
-          // })}
-        />
+        <Tab.Screen name="Hospitals" component={HospitalStackScreen} />
         <Tab.Screen name="Blood Test" component={BloodTestStackScreen} />
+        <Tab.Screen name="Cart" component={CartScreen} />
       </Tab.Navigator>
     </>
   );
