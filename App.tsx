@@ -8,7 +8,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useReactQueryDevTools } from "@dev-plugins/react-query/build/useReactQueryDevTools";
 
 // Hooks
-import { TabBarProvider } from "@hooks/useTabBar";
+import { TabBarProvider } from "context/useTabBar";
+import { CartProvider } from "@context/useCart";
 
 // const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -22,20 +23,22 @@ export default function App() {
       <PaperProvider>
         <NavigationContainer>
           <TabBarProvider>
-            <Stack.Navigator
-              initialRouteName="StartScreen"
-              screenOptions={{
-                headerShown: false,
-              }}
-            >
-              <Stack.Screen name="StartScreen" component={StartScreen} />
-              {/* <Stack.Screen name="LoginScreen" component={LoginScreen} /> */}
-              {/* <Stack.Screen name="RegisterScreen" component={RegisterScreen} /> */}
-              <Stack.Screen
-                name="DashboardScreen"
-                component={DashboardScreen}
-              />
-            </Stack.Navigator>
+            <CartProvider>
+              <Stack.Navigator
+                initialRouteName="StartScreen"
+                screenOptions={{
+                  headerShown: false,
+                }}
+              >
+                <Stack.Screen name="StartScreen" component={StartScreen} />
+                {/* <Stack.Screen name="LoginScreen" component={LoginScreen} /> */}
+                {/* <Stack.Screen name="RegisterScreen" component={RegisterScreen} /> */}
+                <Stack.Screen
+                  name="DashboardScreen"
+                  component={DashboardScreen}
+                />
+              </Stack.Navigator>
+            </CartProvider>
           </TabBarProvider>
         </NavigationContainer>
       </PaperProvider>

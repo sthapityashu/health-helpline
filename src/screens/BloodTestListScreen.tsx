@@ -1,34 +1,72 @@
-// Default
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { Avatar } from "react-native-paper";
-
-// Components
+import { Chip } from "react-native-paper";
+import { useState, useEffect } from "react";
+import React from "react";
+import { useCart } from "@context/useCart";
 import { Container } from "@components/index";
+import { useNavigation } from "@react-navigation/native"; // For navigation
 
-// Utils
-import { BloodTest } from "@utils/data/constants/blood-test";
-import { useState } from "react";
-
-const BloodTestListScreen = ({ route }: any) => {
-  // Get Id from navigation
+const BloodTestListScreen = ({ route, navigation }: any) => {
   const { userId, name, sub } = route.params;
+  const { cartItems, cartTotal, addToCart, removeFromCart } = useCart();
+  // const navigation = useNavigation();
+  const [checkedItems, setCheckedItems] = useState<number[]>([]);
+  console.log("cartTotal", cartTotal);
 
-  // Track which item is expanded
-  const [expandedId, setExpandedId] = useState<number | null>(null);
-  const [list, setList] = useState<number | null>(null);
+  // Sync the checkedItems state with items in the cart
+  useEffect(() => {
+    const cartItemIds = cartItems.map((item: any) => item.id);
+    setCheckedItems(cartItemIds);
+  }, [cartItems]);
 
-  // Compare the Id and get all the data based on Id
-  const bloodTest = BloodTest.find((test: any) => test.testId === userId);
-  // Function to toggle the expanded state
-  const toggleExpand = (id: number, listId: number) => {
-    setList(listId);
-    setExpandedId(expandedId === id ? null : id);
+  // Handle adding to cart and updating checked state
+  const handleAddToCart = (item: any) => {
+    if (!checkedItems.includes(item.id)) {
+      setCheckedItems([...checkedItems, item.id]);
+      addToCart(item);
+    }
   };
-  // const list = userId === expandedId;
+
+  // Handle removing from cart and updating checked state
+  const handleRemoveFromCart = (item: any) => {
+    if (checkedItems.includes(item.id)) {
+      setCheckedItems(checkedItems.filter((id) => id !== item.id));
+      removeFromCart(item);
+    }
+  };
+
+  // Select all items
+  const handleSelectAll = () => {
+    if (checkedItems.length === sub.length) {
+      setCheckedItems([]);
+      sub.forEach((item: any) => removeFromCart(item));
+    } else {
+      const allIds = sub.map((item: any) => item.id);
+      setCheckedItems(allIds);
+      sub.forEach((item: any) => addToCart(item));
+    }
+  };
 
   return (
     <Container>
-      {/* <Text className="text-2xl my-4 text-center">{name}</Text> */}
+      {/* Button to navigate to CartScreen */}
+      <View className="flex-row justify-between items-center py-4 px-4">
+        <TouchableOpacity onPress={() => navigation.navigate("Hospital")}>
+          <Text className="text-lg text-blue-500">Go to Cart</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Display total price at the top */}
+      <View className="bg-white py-4 px-4 flex flex-row justify-between items-center">
+        <Text className="text-xl font-bold">{`Total: Rs. ${cartTotal}`}</Text>
+        <Text>{cartTotal}</Text>
+        {/* <TouchableOpacity onPress={handleSelectAll}>
+          <Text className="text-sm text-blue-500">
+            {checkedItems.length === sub.length ? "Deselect All" : "Select All"}
+          </Text>
+        </TouchableOpacity> */}
+      </View>
+
       <ScrollView showsVerticalScrollIndicator={false} className="mt-4">
         {sub?.map((item: any, id: number) => (
           <View
@@ -36,50 +74,24 @@ const BloodTestListScreen = ({ route }: any) => {
             key={id}
           >
             <View className="flex flex-row items-center justify-between px-4">
-              <View className="w-[85%]">
+              <View className="w-[70%]">
                 <Text className="text-base font-semibold capitalize">
                   {item?.title}
-                  {item?.id}
                 </Text>
                 <Text className="text-xl">Rs. {item?.price}</Text>
               </View>
-              {/* <View className="w-[15%] flex justify-end items-end"> */}
-              <TouchableOpacity onPress={() => toggleExpand(id, item?.id)}>
-                <Avatar.Icon
-                  // icon="arrow-down-circle"
-                  icon="plus"
-                  size={30}
-                  color="#01B9EB"
-                  className="bg-transparent rounded-md"
-                />
+              <TouchableOpacity
+                onPress={() =>
+                  checkedItems.includes(item.id)
+                    ? handleRemoveFromCart(item)
+                    : handleAddToCart(item)
+                }
+              >
+                <Chip selected={checkedItems.includes(item.id)}>
+                  {checkedItems.includes(item.id) ? "Added" : "Add"}
+                </Chip>
               </TouchableOpacity>
-              {/* </View> */}
             </View>
-            {/* Conditionally render additional options when expanded */}
-            {expandedId === id && list === item?.id && (
-              <>
-                <View className="bg-gray-200 h-[2px] mx-2 shadow-md" />
-                <View className="px-4 mt-2">
-                  {/* Display additional sub list based on ID comparison */}
-                  {item?.sub && item?.sub.length > 0 ? (
-                    item.sub.map((subItem: any, subId: number) => (
-                      <View
-                        className="flex flex-row justify-between py-2"
-                        key={subId}
-                      >
-                        <Text className="text-sm">{sub?.id}</Text>
-                        <Text className="text-sm">{sub?.title}</Text>
-                        <Text className="text-sm">Rs. {sub?.price}</Text>
-                      </View>
-                    ))
-                  ) : (
-                    <Text className="text-sm italic">
-                      No additional tests available.
-                    </Text>
-                  )}
-                </View>
-              </>
-            )}
           </View>
         ))}
       </ScrollView>

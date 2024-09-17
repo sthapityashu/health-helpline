@@ -8,7 +8,7 @@ import BloodTestListScreen from "./BloodTestListScreen";
 import BloodTestScreen from "./BloodTestScreen";
 
 // Hooks
-import { useTabBar } from "@hooks/useTabBar";
+import { useTabBar } from "@context/useTabBar";
 
 const BloodTestStack = createStackNavigator();
 

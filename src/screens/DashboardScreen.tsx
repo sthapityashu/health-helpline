@@ -14,7 +14,7 @@ import BloodTestStackScreen from "./BloodTestStackScreen";
 import CartScreen from "./CartScreen";
 
 // Hooks
-import { useTabBar } from "@hooks/useTabBar";
+import { useTabBar } from "context/useTabBar";
 
 // Components
 import Container from "@components/Container";

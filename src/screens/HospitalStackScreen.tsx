@@ -1,5 +1,5 @@
 // Defaults
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
@@ -9,7 +9,7 @@ import DoctorScreen from "./DoctorScreen";
 import HospitalScreen from "./HospitalScreen";
 
 // Hooks
-import { useTabBar } from "@hooks/useTabBar";
+import { useTabBar } from "context/useTabBar";
 
 // Navigation context
 const HospitalStack = createStackNavigator();

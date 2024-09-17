@@ -1,6 +1,7 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "jsx": "react",
     "strict": true,
     "baseUrl": "src", // This must be specified if "paths" is.
 
@@ -8,6 +9,7 @@
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
+      "@context/*": ["context/*"],
       "@screens/*": ["screens/*"],
       "@helpers/*": ["helpers/*"],
       "@utils/*": ["utils/*"],
