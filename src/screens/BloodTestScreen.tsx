@@ -4,7 +4,7 @@ import { View, ScrollView, TouchableOpacity, Image } from "react-native";
 import { Text } from "react-native-paper";
 
 // Components
-import { Container, SearchInput } from "@components/index";
+import { Container, Loader, SearchInput } from "@components/index";
 
 // Utils
 import { BloodTest } from "@utils/data/constants/blood-test";
@@ -21,7 +21,7 @@ const backgroundColors = [
 
 const BloodTestScreen = ({ navigation }: any) => {
   // Fetch Api
-  const { getLabTest } = useLabApi();
+  const { getLabTest, getLabTestFetching } = useLabApi();
 
   console.log("Lab Test", getLabTest?.labtestPrice);
 
@@ -41,48 +41,52 @@ const BloodTestScreen = ({ navigation }: any) => {
       <Container>
         <SearchInput />
         {/* Doctor Speciality */}
-        <View className="flex flex-row items-center justify-between mb-2">
-          <Text className="text-xl font-bold">
-            Health Checkups and Screenings
-          </Text>
-        </View>
-
-        <ScrollView showsVerticalScrollIndicator={false} className="mb-60">
-          <View className="flex flex-col mt-4 gap-3">
-            {pairs?.map((pair: any, index: number) => (
-              <View className="flex flex-row justify-between" key={index}>
-                {pair?.map((item: any, subIndex: number) => {
-                  // Calculate the index for the background color
-                  const colorIndex =
-                    (index * 2 + subIndex) % backgroundColors.length;
-                  return (
-                    <TouchableOpacity
-                      className="w-[48%]"
-                      onPress={() =>
-                        navigation.navigate("BloodTestListScreen", {
-                          userId: item.id,
-                          name: item.title,
-                          sub: item.sub,
-                        })
-                      }
-                      key={subIndex}
-                    >
-                      <View
-                        className={`${backgroundColors[colorIndex]} rounded-lg flex justify-start`}
+        {/* <View className="flex flex-row items-center justify-between mb-2">
+          <Text className="text-xl font-bold">Lab Test </Text>
+        </View> */}
+        {getLabTestFetching ? (
+          <Loader />
+        ) : (
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            className="mb-[170px]"
+          >
+            <View className="flex flex-col mt-4 gap-3">
+              {pairs?.map((pair: any, index: number) => (
+                <View className="flex flex-row justify-between" key={index}>
+                  {pair?.map((item: any, subIndex: number) => {
+                    // Calculate the index for the background color
+                    const colorIndex =
+                      (index * 2 + subIndex) % backgroundColors.length;
+                    return (
+                      <TouchableOpacity
+                        className="w-[48%]"
+                        onPress={() =>
+                          navigation.navigate("BloodTestListScreen", {
+                            userId: item.id,
+                            name: item.title,
+                            sub: item.sub,
+                          })
+                        }
+                        key={subIndex}
                       >
-                        <View className="flex items-center justify-center h-[40px]">
-                          <Text className="text-[14px] px-2 text-center">
-                            {item.title}
-                          </Text>
+                        <View
+                          className={`${backgroundColors[colorIndex]} rounded-lg flex justify-start`}
+                        >
+                          <View className="flex items-center justify-center h-[70px]">
+                            <Text className="text-[14px] px-2 text-center">
+                              {item.title}
+                            </Text>
+                          </View>
                         </View>
-                      </View>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-            ))}
-          </View>
-        </ScrollView>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              ))}
+            </View>
+          </ScrollView>
+        )}
       </Container>
     </>
   );
