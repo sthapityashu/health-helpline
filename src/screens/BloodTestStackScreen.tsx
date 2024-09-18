@@ -9,6 +9,10 @@ import BloodTestScreen from "./BloodTestScreen";
 
 // Hooks
 import { useTabBar } from "@context/useTabBar";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { TouchableOpacity, View } from "react-native";
+import CartIconWithBadge from "@components/CartIconWithBadge";
+import { useCart } from "@context/useCart";
 
 const BloodTestStack = createStackNavigator();
 
@@ -18,6 +22,7 @@ const BloodTestStackScreen = ({ route }: any) => {
 
   // Context
   const { setHideTabBar } = useTabBar();
+  const { cartItems } = useCart();
 
   useEffect(() => {
     if (routeName === "BloodTestListScreen") {
@@ -57,6 +62,11 @@ const BloodTestStackScreen = ({ route }: any) => {
           headerShown: true,
           headerTitle: route?.params?.name, // Display the screen name
           headerTintColor: "white",
+          headerRight: () => (
+            <TouchableOpacity>
+              <CartIconWithBadge cartCount={cartItems?.length} />
+            </TouchableOpacity>
+          ),
           headerStyle: {
             backgroundColor: "#01B9EB",
           },

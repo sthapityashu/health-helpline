@@ -11,7 +11,7 @@ import { createMaterialBottomTabNavigator } from "react-native-paper/react-navig
 import HomeScreen from "./HomeScreen";
 import HospitalStackScreen from "./HospitalStackScreen";
 import BloodTestStackScreen from "./BloodTestStackScreen";
-import CartScreen from "./CartScreen";
+import CartStackScreen from "./CartStackScreen";
 
 // Hooks
 import { useTabBar } from "context/useTabBar";
@@ -113,7 +113,7 @@ const DashboardScreen = ({ navigation, route }: any) => {
         <Tab.Screen name="Home" component={HomeStack} />
         <Tab.Screen name="Hospitals" component={HospitalStackScreen} />
         <Tab.Screen name="Blood Test" component={BloodTestStackScreen} />
-        <Tab.Screen name="Cart" component={CartScreen} />
+        <Tab.Screen name="Cart" component={CartStackScreen} />
       </Tab.Navigator>
     </>
   );
