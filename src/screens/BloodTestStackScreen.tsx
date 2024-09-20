@@ -9,7 +9,7 @@ import BloodTestScreen from "./BloodTestScreen";
 
 // Hooks
 import { useTabBar } from "@context/useTabBar";
-import Ionicons from "react-native-vector-icons/Ionicons";
+// import Ionicons from "react-native-vector-icons/Ionicons";
 import { TouchableOpacity, View } from "react-native";
 import CartIconWithBadge from "@components/CartIconWithBadge";
 import { useCart } from "@context/useCart";
