@@ -18,6 +18,7 @@ import { useTabBar } from "context/useTabBar";
 
 // Components
 import Container from "@components/Container";
+import { useCart } from "@context/useCart";
 
 // Navigation Context
 const Tab = createMaterialBottomTabNavigator();
@@ -69,6 +70,7 @@ const HomeStack = () => {
 const DashboardScreen = ({ navigation, route }: any) => {
   // const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
   const { hideTabBar, setHideTabBar } = useTabBar();
+  const { cartItems } = useCart();
 
   console.log("HideTabBar", hideTabBar);
   useFocusEffect(
@@ -113,7 +115,11 @@ const DashboardScreen = ({ navigation, route }: any) => {
         <Tab.Screen name="Home" component={HomeStack} />
         <Tab.Screen name="Hospitals" component={HospitalStackScreen} />
         <Tab.Screen name="Blood Test" component={BloodTestStackScreen} />
-        <Tab.Screen name="Cart" component={CartStackScreen} />
+        <Tab.Screen
+          name="Cart"
+          component={CartStackScreen}
+          options={{ tabBarBadge: cartItems?.length }}
+        />
       </Tab.Navigator>
     </>
   );
