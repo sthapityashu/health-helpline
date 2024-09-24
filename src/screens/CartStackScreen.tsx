@@ -38,7 +38,7 @@ export default function CartStackScreen({ route }: any) {
           headerShown: true,
           headerTitle: "Cart",
           headerTintColor: "white",
-          headerLeft: () => null,
+          // headerLeft: () => null,
           headerStyle: {
             backgroundColor: "#01B9EB",
           },
