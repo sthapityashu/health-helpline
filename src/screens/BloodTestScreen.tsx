@@ -23,7 +23,6 @@ const BloodTestScreen = ({ navigation }: any) => {
   // Fetch Api
   const { getLabTest, getLabTestFetching } = useLabApi();
 
-  console.log("Lab Test", getLabTest?.labtestPrice);
 
   // Function to reduce the total array into 2
   const pairs = getLabTest?.labtestPrice?.reduce(

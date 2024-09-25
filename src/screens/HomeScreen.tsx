@@ -1,4 +1,5 @@
 // Default
+import React from "react";
 import {
   ImageBackground,
   Text,
@@ -23,26 +24,12 @@ import { useIsFocused } from "@react-navigation/native";
 const HomeScreen = ({ navigation }: any) => {
   // Custom Hooks
   const { isIOS } = usePlatform();
-  const queryClient = useQueryClient();
-  const isFocused = useIsFocused();
-
-  const clearAllQueries = () => {
-    queryClient.clear();
-  };
-
-  useEffect(() => {
-    if (isFocused) {
-      queryClient.invalidateQueries({
-        queryKey: ["useHealthCentersApi"],
-      });
-    }
-  }, [isFocused]);
 
   return (
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Card Section */}
-        <View
+        {/* <View
           className={`w-full rounded-lg overflow-hidden ${
             isIOS ? "my-4" : "mb-4"
           } `}
@@ -70,17 +57,17 @@ const HomeScreen = ({ navigation }: any) => {
               />
             </View>
           </ImageBackground>
-        </View>
+        </View> */}
 
         <>
           {/* Doctor Speciality */}
-          <View className="flex flex-row items-center justify-between">
+          {/* <View className="flex flex-row items-center justify-between">
             <Text className="text-xl font-bold">Doctor Speciality</Text>
             <Text>See All</Text>
-          </View>
+          </View> */}
 
           {/* Speciality Section */}
-          <View className="flex flex-row justify-between items-center my-2">
+          {/* <View className="flex flex-row justify-between items-center my-2">
             <View className="flex items-center justify-center gap-2">
               <View className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center">
                 <Image
@@ -128,22 +115,22 @@ const HomeScreen = ({ navigation }: any) => {
               </View>
               <Text>Pediatric</Text>
             </View>
-          </View>
+          </View> */}
         </>
 
         <>
           {/* Recomendation */}
-          <View className="flex flex-row items-center justify-between my-2">
+          {/* <View className="flex flex-row items-center justify-between my-2">
             <Text className="text-xl font-bold">Recommended Doctor</Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("DoctorScreen")}
             >
               <Text>See All</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
 
           {/* Doctor */}
-          <ScrollView
+          {/* <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             className="h-[100px]"
@@ -234,38 +221,19 @@ const HomeScreen = ({ navigation }: any) => {
                 </View>
               </TouchableOpacity>
             </View>
-          </ScrollView>
+          </ScrollView> */}
         </>
 
         <>
-          <View className="flex flex-row items-center justify-between my-2">
+          {/* <View className="flex flex-row items-center justify-between my-2">
             <Text className="text-xl font-bold">Blood Test</Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("BloodTestScreen")}
             >
               <Text>See All</Text>
             </TouchableOpacity>
-          </View>
-          <>
-            {BloodTest.slice(0, 3).map((item: any, id: number) => (
-              <View
-                className="bg-gray-100 w-full h-36 rounded-md my-2"
-                key={id}
-              >
-                <View className="flex flex-row w-full h-full items-center justify-around">
-                  <Image
-                    className="h-full w-[40%] rounded-md"
-                    source={{
-                      uri: item.image,
-                    }}
-                  />
-                  <View className="w-[60%] px-4">
-                    <Text className="text-xl font-bold">{item.category}</Text>
-                  </View>
-                </View>
-              </View>
-            ))}
-          </>
+          </View> */}
+        
         </>
       </ScrollView>
     </Container>

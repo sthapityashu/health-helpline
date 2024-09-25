@@ -44,7 +44,7 @@ const AppointmentScreen = ({ route }: any) => {
 
   return (
     <Container className="p-4 bg-white">
-      <View className="bg-gray-100 w-full h-40 rounded-md my-2 py-2 px-2">
+      <View className="bg-gray-100 w-full h-24 rounded-md my-2 py-2 px-2">
         <View
           style={{
             flex: 1,
@@ -53,14 +53,14 @@ const AppointmentScreen = ({ route }: any) => {
             alignItems: "center",
           }}
         >
-          <View style={{ width: "40%" }}>
+          {/* <View style={{ width: "40%" }}>
             <Image
               className="h-full w-32 rounded-full"
               source={{
                 uri: "https://thumbs.dreamstime.com/b/young-smiling-old-man-doctor-medical-specialist-medicine-concept-cute-d-icon-people-character-illustration-cartoon-minimal-young-279139332.jpg",
               }}
             />
-          </View>
+          </View> */}
           <View style={{ width: "60%" }} className="pl-2">
             <Text className="text-lg font-bold">Prof. Dr. Yashu Sthapit</Text>
             <Text className="py-2">MD, Neuro Surgeon, Neuro Specialist</Text>
@@ -69,7 +69,7 @@ const AppointmentScreen = ({ route }: any) => {
         </View>
       </View>
       <View>
-        <Text className="text-xl">Select Appointment Date</Text>
+        {/* <Text className="text-xl">Select Appointment Date</Text> */}
         <View className="flex flex-row items-center my-4 border border-gray-300 rounded">
           <TextInput
             placeholder={date ? date?.toDateString() : "Select date"}
@@ -102,7 +102,7 @@ const AppointmentScreen = ({ route }: any) => {
       {date && (
         <>
           <View>
-            <Text className="text-xl">Select Appointment Time</Text>
+            {/* <Text className="text-xl">Select Appointment Time</Text> */}
             <DropDown
               label={"Select Time"}
               mode={"outlined"}

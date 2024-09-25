@@ -1,78 +1,31 @@
 // Defaults
 import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { useFocusEffect } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 
 // Screens
-import HomeScreen from "./HomeScreen";
 import HospitalStackScreen from "./HospitalStackScreen";
 import BloodTestStackScreen from "./BloodTestStackScreen";
 import CartStackScreen from "./CartStackScreen";
+import HomeStackScreen from "./HomeStackScreen";
 
 // Hooks
 import { useTabBar } from "context/useTabBar";
 
 // Components
-import Container from "@components/Container";
 import { useCart } from "@context/useCart";
 
 // Navigation Context
 const Tab = createMaterialBottomTabNavigator();
-const Stack = createStackNavigator();
-
-const HomeStack = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: "#01B9EB",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
-        headerTitleAlign: "left",
-        headerRight: () => (
-          <Container>
-            <TouchableOpacity style={{ marginRight: 10 }}>
-              <Ionicons name="person-outline" size={24} color="#fff" />
-            </TouchableOpacity>
-          </Container>
-        ),
-        headerLeft: () => (
-          <Container>
-            <Text
-              style={{ color: "#fff", fontSize: 14, fontWeight: "semibold" }}
-            >
-              Welcome to
-            </Text>
-            <Text style={{ color: "#fff", fontSize: 22, fontWeight: "bold" }}>
-              Health Helpline
-            </Text>
-          </Container>
-        ),
-      }}
-    >
-      <Stack.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{ title: "" }}
-      />
-      {/* Add other screens if needed */}
-    </Stack.Navigator>
-  );
-};
 
 const DashboardScreen = ({ navigation, route }: any) => {
   // const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
+  // Context
   const { hideTabBar, setHideTabBar } = useTabBar();
   const { cartItems } = useCart();
 
-  console.log("HideTabBar", hideTabBar);
   useFocusEffect(
     React.useCallback(() => {
       // Reset tab bar visibility when navigating back to the Home tab
@@ -112,7 +65,7 @@ const DashboardScreen = ({ navigation, route }: any) => {
         barStyle={{ display: hideTabBar ? "none" : "flex" }}
         keyboardHidesNavigationBar
       >
-        <Tab.Screen name="Home" component={HomeStack} />
+        <Tab.Screen name="Home" component={HomeStackScreen} />
         <Tab.Screen name="Hospitals" component={HospitalStackScreen} />
         <Tab.Screen name="Blood Test" component={BloodTestStackScreen} />
         <Tab.Screen

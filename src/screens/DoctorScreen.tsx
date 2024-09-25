@@ -1,62 +1,43 @@
-// Defaults
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import {
-  ScrollView,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Pressable,
-  ActivityIndicator,
-} from "react-native";
-import { useIsFocused } from "@react-navigation/native";
+import React, { useCallback, useState } from "react";
+import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
 // Components
-import { Container, SearchInput } from "@components/index";
+import { Container, Loader } from "@components/index";
 
 // Stores
 import { useDoctorsApi } from "stores";
 import useSearchApi from "stores/useSearchApi";
 
 const DoctorScreen = ({ navigation, route }: any) => {
-  const { hospitalId, slug } = route.params;
-  const isFocused = useIsFocused();
-
-  // console.log("Doctor Screen is focused", isFocused);
+  const { name, logo, address, phone, hospitalId, slug } = route.params;
 
   // States
-  const [departmentId, setDepartmentId] = useState<any>(null);
-  const [departmentName, setDepartmentName] = useState<any>(null);
-  const [selectedId, setSelectedId] = useState<any>();
+  const [selectedId, setSelectedId] = useState<any>(null);
+  const [departmentName, setDepartmentName] = useState<string | null>("All");
 
   // Fetch API
   const { getDoctors, getDoctorssFetching } = useDoctorsApi(slug);
-  const { getSearchData } = useSearchApi(selectedId, hospitalId);
+  const { getSearchData, getSearchDataFetching } = useSearchApi(
+    selectedId,
+    hospitalId
+  );
 
-  // const DOCTOR_IMG_PATH = getDoctors?.doctor_img_path;
-
-  // console.log("Doctors", getDoctors);
+  const DOCTOR_IMG_PATH = getDoctors?.doctor_img_path;
 
   // Filter doctors based on selected department
-  // const filteredDoctors = departmentId
-  //   ? getSearchData?.doctors
-  //   : getDoctors?.doctors;
+  const filteredDoctors = selectedId
+    ? getSearchData?.doctors
+    : getDoctors?.doctors;
 
-  const apiCallCountRef = useRef(0);
-  const isMounted = useRef(false);
-  // useEffect(() => {
-  //   if (!isFocused) {
-  //     console.log("Effect triggered");
-  //     navigation.popToTop();
-  //   }
-  // }, [isFocused, navigation]);
+  // Count total doctors for each department
+  const departmentDoctorCount = (department: number) => {
+    return getDoctors?.doctors?.filter(
+      (doc: any) => doc?.departments === department
+    ).length;
+  };
 
-  const getDoc = useCallback((id: number) => {
-    setSelectedId(id);
-    console.log("Get the Department ID", id);
-  }, []);
-
-  // return;
+  // Department colors
   const colorList = [
     "bg-green-100",
     "bg-blue-100",
@@ -65,88 +46,129 @@ const DoctorScreen = ({ navigation, route }: any) => {
     "bg-orange-100",
   ];
 
-  // const getItemColor = (index: number) => colorList[index % colorList?.length];
+  // Get department and update selectedId
+  const getDoc = useCallback((id: number | null, departmentName?: string) => {
+    setSelectedId(id);
+    setDepartmentName(departmentName || "All");
+  }, []);
 
   return (
     <>
       {getDoctorssFetching ? (
-        <View className="flex-1 items-center justify-center min-w-screen mx-auto">
-          <ActivityIndicator size="large" color="#01B9EB" />
-        </View>
+        <Loader />
       ) : (
         <Container>
-          <SearchInput />
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {getDoctors?.department?.map((items: any, id: number) => (
-              <Pressable
-                key={id}
-                onPress={() => getDoc(items?.department_id)}
-                className="flex flex-row m-2"
+          {/* Hospital Info */}
+          <View className="bg-[#01B9EB] w-full h-auto rounded-md my-2">
+            <View className="flex flex-row items-center justify-start p-4">
+              <Image
+                className="h-10 w-10 rounded-md"
+                source={{
+                  uri: `https://healthhelpline.com.np/assets/upload/clinic-img/${logo}`,
+                }}
+              />
+              <View className="flex-1 ml-4">
+                <Text className="text-sm font-semibold text-white">{name}</Text>
+                <View className="flex flex-row items-center justify-start">
+                  <FontAwesome6 name="location-dot" size={14} color="white" />
+                  <Text className="text-sm text-white mx-2">{address}</Text>
+                </View>
+
+                <View className="flex flex-row items-center justify-start">
+                  <FontAwesome6 name="square-phone" size={14} color="white" />
+                  <Text className="text-sm text-white mx-1">{phone}</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+
+          {/* Department List */}
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            className="h-[36px] my-4"
+          >
+            <TouchableOpacity onPress={() => getDoc(null, "All")}>
+              <View
+                className={`p-1 rounded ${
+                  selectedId === null ? "bg-green-300" : "bg-gray-100"
+                }`}
               >
-                <Text
-                  className={`p-2 ${
-                    selectedId === items.department_id
-                      ? "bg-green-200"
-                      : "bg-yellow-200"
+                <Text className="">{`All `}</Text>
+              </View>
+            </TouchableOpacity>
+
+            {getDoctors?.department.map((items: any, id: number) => (
+              <TouchableOpacity
+                key={id}
+                onPress={() =>
+                  getDoc(items?.department_id, items?.department_name)
+                }
+              >
+                <View
+                  className={`p-1 mx-2 rounded ${
+                    selectedId === items?.department_id
+                      ? "bg-green-300"
+                      : colorList[id % colorList.length]
                   }`}
                 >
-                  {items?.department_name}
-                </Text>
-              </Pressable>
+                  <Text className="">{`${items?.department_name} `}</Text>
+                </View>
+              </TouchableOpacity>
             ))}
           </ScrollView>
 
-          {getSearchData?.doctors?.map((depDoctor: any, id: number) => (
-            <View key={id} className="m-2">
-              <Text className="bg-green-200 p-2">{depDoctor?.firstname}</Text>
-            </View>
-          ))}
-
-          {/* Recommendation Section */}
-
-          {/* Overall List Section */}
-          {/* <ScrollView showsVerticalScrollIndicator={false} className="mb-44">
+          {/* Doctor List */}
+          <ScrollView showsVerticalScrollIndicator={false} className="mb-60">
             <View>
               <View className="flex flex-row items-center justify-between mb-2">
-                <Text className="text-xl font-bold">
-                  {departmentName ? departmentName : "All Doctors"}
+                <Text className="text-sm font-bold">
+                  {`${departmentName}  ` || "All Doctors"}
                 </Text>
               </View>
-              {filteredDoctors?.map((doctorList: any, idx: number) => (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("AppointmentScreen", {
-                      clinicId: doctorList?.clinic_id,
-                      doctorId: doctorList?.doctor_id,
-                    })
-                  }
-                  key={idx}
-                >
-                  <View className="bg-gray-100 w-full h-auto rounded-md my-2">
-                    <View className="flex flex-row items-center justify-start p-4">
-                      <Image
-                        className="h-20 w-20 rounded-full bg-slate-300 object-cover"
-                        source={{
-                          uri: `${DOCTOR_IMG_PATH + doctorList?.profile_img}`,
-                        }}
-                      />
-                      <View className="flex-1 ml-4">
-                        <Text className="text-xl font-bold capitalize">
-                          {doctorList?.firstname + " " + doctorList?.lastname}
-                        </Text>
-                        <Text className="text-lg ">
-                          {doctorList?.departments}
-                        </Text>
-                        <Text className="text-lg ">
-                          {`NMC NO. ${doctorList?.council_regno}`}
-                        </Text>
+              {filteredDoctors?.length > 0 ? (
+                filteredDoctors?.map((doctorList: any, idx: number) => (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("AppointmentScreen", {
+                        clinicId: doctorList?.clinic_id, // Hospital Id
+                        doctorId: doctorList?.doctor_id, // Doctor Id
+                      })
+                    }
+                    key={idx}
+                  >
+                    <View className="bg-gray-100 w-full h-auto rounded-md my-2">
+                      <View className="flex flex-row items-center justify-start p-4">
+                        <Image
+                          className="h-10 w-10 rounded-full bg-slate-300 object-cover"
+                          source={{
+                            uri: `${DOCTOR_IMG_PATH + doctorList?.profile_img}`,
+                          }}
+                        />
+                        <View className="flex-1 ml-4">
+                          <Text className="text-lg font-bold capitalize">
+                            {doctorList?.firstname + " " + doctorList?.lastname}
+                          </Text>
+                          <Text className="text-sm ">
+                            {!selectedId
+                              ? doctorList?.departments
+                              : doctorList?.department_name}
+                          </Text>
+                          <Text className="text-sm ">
+                            {`NMC NO. ${doctorList?.council_regno}`}
+                          </Text>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
-              ))}
+                  </TouchableOpacity>
+                ))
+              ) : getSearchDataFetching ? (
+                <Loader />
+              ) : (
+                <Text>No doctors available for {departmentName}</Text>
+              )}
             </View>
-          </ScrollView> */}
+          </ScrollView>
         </Container>
       )}
     </>
