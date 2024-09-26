@@ -1,35 +1,70 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  Text,
-  ActivityIndicator,
-  Button,
-} from "react-native";
+import React, { useState } from "react";
+import { View, ScrollView, TouchableOpacity, Image, Text } from "react-native";
 import { Container, Loader, SearchInput } from "@components/index";
 import useHealthCentersApi from "@stores/useHealthCentersApi";
 
 const HospitalScreen = ({ navigation }: any) => {
-  const {
-    getHealthCenters,
-    getHealthCentersFetching,
-    getHealthCentersFetchError,
-  }: any = useHealthCentersApi();
+  const { getHealthCenters, getHealthCentersFetching }: any =
+    useHealthCentersApi();
 
+  const [filteredCenters, setFilteredCenters] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  // Search function to filter hospitals
+  const handleSearch = (searchTerm: string) => {
+    if (searchTerm) {
+      const filtered = getHealthCenters?.centers?.filter((center: any) =>
+        center?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredCenters(filtered);
+      setShowDropdown(true); // Show dropdown when there are results
+    } else {
+      setFilteredCenters([]);
+      setShowDropdown(false); // Hide dropdown when search is cleared
+    }
+  };
+
+  const handleDropdownSelect = (center: any) => {
+    setShowDropdown(false);
+    navigation.navigate("DoctorScreen", {
+      logo: center?.brand_logo,
+      name: center?.name,
+      address: center?.address,
+      phone: center?.landline,
+      hospitalId: center?.clinic_id,
+      slug: center?.slug,
+    });
+  };
+
+  const handleSelectHospital = (center: any) => {
+    navigation.navigate("DoctorScreen", {
+      logo: center?.brand_logo,
+      name: center?.name,
+      address: center?.address,
+      phone: center?.landline,
+      hospitalId: center?.clinic_id,
+      slug: center?.slug,
+    });
+  };
   if (getHealthCentersFetching) {
     return <Loader />;
   }
 
-  // console.log("Health Centers", getHealthCenters.centers);
   return (
     <Container>
-      <SearchInput />
-      <View>
-        <Text>Hospitals ({getHealthCenters?.centers?.length})</Text>
-      </View>
-      <ScrollView showsVerticalScrollIndicator={false} className="mb-52">
+      {/* <SearchInput onSearch={handleSearch} placeholder="Search Hospitals" /> */}
+      <SearchInput
+        onSearch={handleSearch}
+        placeholder="Search Hospitals"
+        data={getHealthCenters.centers} // Pass the data prop
+        onSelect={handleSelectHospital} // Pass the select handler
+      />
+
+      {/* Display all hospitals in the ScrollView when the dropdown is not shown */}
+      <ScrollView showsVerticalScrollIndicator={false} className="mb-28">
+        <View>
+          <Text>Hospitals ({getHealthCenters?.centers?.length})</Text>
+        </View>
         {getHealthCenters?.centers?.map((center: any, idx: number) => (
           <TouchableOpacity
             onPress={() =>

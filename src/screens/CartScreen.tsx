@@ -29,7 +29,6 @@ const CartScreen = () => {
     cartItems: cartItems,
   });
 
-
   const slideUp = () => {
     Animated.timing(slideAnim, {
       toValue: 0, // Move into view (final position)
@@ -65,7 +64,7 @@ const CartScreen = () => {
         onPress: () => console.log("Cancel Pressed"),
         style: "cancel",
       },
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => removeFromCart(item) },
     ]);
   };
 
@@ -73,6 +72,7 @@ const CartScreen = () => {
     // Handle form submission
     const submissionData = { ...formData, cartItems };
     Alert.alert("Form Submitted", JSON.stringify(submissionData));
+    removeFromCart(cartItems);
     setFormVisible(false); // Hide the form after submission
   };
 
