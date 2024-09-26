@@ -133,6 +133,17 @@ const DoctorScreen = ({ navigation, route }: any) => {
                       navigation.navigate("AppointmentScreen", {
                         clinicId: doctorList?.clinic_id, // Hospital Id
                         doctorId: doctorList?.doctor_id, // Doctor Id
+                        // departId:
+                        departmentName:
+                          selectedId === null
+                            ? doctorList?.departments
+                            : doctorList?.department_name, // Department Id
+                        doctorName:
+                          doctorList?.firstname + " " + doctorList?.lastname,
+                        profile:
+                          doctorList?.profile_img !== null
+                            ? DOCTOR_IMG_PATH + doctorList?.profile_img
+                            : "https://pinnacle.works/wp-content/uploads/2022/06/dummy-image.jpg",
                       })
                     }
                     key={idx}
@@ -142,7 +153,11 @@ const DoctorScreen = ({ navigation, route }: any) => {
                         <Image
                           className="h-10 w-10 rounded-full bg-slate-300 object-cover"
                           source={{
-                            uri: `${DOCTOR_IMG_PATH + doctorList?.profile_img}`,
+                            uri: `${
+                              doctorList?.profile_img !== null
+                                ? DOCTOR_IMG_PATH + doctorList?.profile_img
+                                : "https://pinnacle.works/wp-content/uploads/2022/06/dummy-image.jpg"
+                            }`,
                           }}
                         />
                         <View className="flex-1 ml-4">
@@ -150,6 +165,7 @@ const DoctorScreen = ({ navigation, route }: any) => {
                             {doctorList?.firstname + " " + doctorList?.lastname}
                           </Text>
                           <Text className="text-sm ">
+                            {doctorList?.department_id}
                             {!selectedId
                               ? doctorList?.departments
                               : doctorList?.department_name}

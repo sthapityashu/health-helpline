@@ -29,7 +29,7 @@ const CartScreen = () => {
     cartItems: cartItems,
   });
 
-  console.log("CartItem", cartItems);
+
   const slideUp = () => {
     Animated.timing(slideAnim, {
       toValue: 0, // Move into view (final position)
