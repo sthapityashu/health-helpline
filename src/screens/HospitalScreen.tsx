@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { View, ScrollView, TouchableOpacity, Image, Text } from "react-native";
 import { Container, Loader, SearchInput } from "@components/index";
 import useHealthCentersApi from "@stores/useHealthCentersApi";
+import usePlatform from "@hooks/usePlatform";
 
 const HospitalScreen = ({ navigation }: any) => {
+  // Hooks
+  const { isIOS } = usePlatform();
+
+  // Fetch API
   const { getHealthCenters, getHealthCentersFetching }: any =
     useHealthCentersApi();
 
@@ -61,7 +66,10 @@ const HospitalScreen = ({ navigation }: any) => {
       />
 
       {/* Display all hospitals in the ScrollView when the dropdown is not shown */}
-      <ScrollView showsVerticalScrollIndicator={false} className="mb-28">
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className={`${isIOS ? "mb-[170px]" : "mb-[120px]"}`}
+      >
         <View>
           <Text>Hospitals ({getHealthCenters?.centers?.length})</Text>
         </View>

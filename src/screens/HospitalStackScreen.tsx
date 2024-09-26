@@ -10,6 +10,9 @@ import HospitalScreen from "./HospitalScreen";
 
 // Hooks
 import { useTabBar } from "context/useTabBar";
+import Container from "@components/Container";
+import { TouchableOpacity } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 // Navigation context
 const HospitalStack = createStackNavigator();

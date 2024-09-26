@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { View, FlatList, TouchableOpacity, Text } from "react-native";
 import { Avatar, IconButton, TextInput } from "react-native-paper";
 import Entypo from "@expo/vector-icons/Entypo";
+import usePlatform from "@hooks/usePlatform";
 
 const SearchInput = ({ onSearch, placeholder, data, onSelect }: any) => {
+  // Hook
+  const { isIOS } = usePlatform();
+
   const [text, setText] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [isFocused, setIsFocused] = useState(false); // Track focus state
@@ -45,7 +49,7 @@ const SearchInput = ({ onSearch, placeholder, data, onSelect }: any) => {
   }, []);
 
   return (
-    <View className="flex flex-col">
+    <View className={`flex flex-col ${isIOS ? "my-4" : ""}`}>
       <View className="flex flex-row items-center border border-gray-300 rounded">
         <TextInput
           placeholder={placeholder || "Search"} // Use dynamic placeholder

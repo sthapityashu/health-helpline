@@ -9,6 +9,7 @@ import { Container, Loader, SearchInput } from "@components/index";
 // Utils
 import { BloodTest } from "@utils/data/constants/blood-test";
 import useLabApi from "@stores/useLabApi";
+import usePlatform from "@hooks/usePlatform";
 
 const backgroundColors = [
   "bg-green-100",
@@ -20,9 +21,10 @@ const backgroundColors = [
 ];
 
 const BloodTestScreen = ({ navigation }: any) => {
+  // Hooks
+  const { isIOS } = usePlatform();
   // Fetch Api
   const { getLabTest, getLabTestFetching } = useLabApi();
-
 
   // Function to reduce the total array into 2
   const pairs = getLabTest?.labtestPrice?.reduce(
@@ -48,7 +50,7 @@ const BloodTestScreen = ({ navigation }: any) => {
         ) : (
           <ScrollView
             showsVerticalScrollIndicator={false}
-            className="mb-[170px]"
+            className={`${isIOS ? "mb-[170px]" : "mb-[120px]"} mt-4`}
           >
             <View className="flex flex-col mt-4 gap-3">
               {pairs?.map((pair: any, index: number) => (
