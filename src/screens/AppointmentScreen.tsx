@@ -101,7 +101,7 @@ const AppointmentScreen = ({ route, navigation }: any) => {
               <Text className="text-lg font-bold mb-4 text-[#0077b6]">
                 Appointment Information
               </Text>
-
+ 
               {/* Doctor info */}
               <View className="bg-[#01B9EB] w-full h-auto rounded-md my-2">
                 <View className="flex flex-row items-center justify-start p-4">

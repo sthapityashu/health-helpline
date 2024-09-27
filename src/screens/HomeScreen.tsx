@@ -15,11 +15,6 @@ import { Container } from "../components";
 
 // Hooks
 import usePlatform from "../hooks/usePlatform";
-import BloodTestScreen from "./BloodTestScreen";
-import { BloodTest } from "@utils/data/constants/blood-test";
-import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { useIsFocused } from "@react-navigation/native";
 
 const HomeScreen = ({ navigation }: any) => {
   // Custom Hooks

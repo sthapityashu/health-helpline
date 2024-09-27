@@ -1,3 +1,4 @@
+// Defaults
 import React, { useCallback, useState } from "react";
 import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
