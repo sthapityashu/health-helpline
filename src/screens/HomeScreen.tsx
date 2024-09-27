@@ -29,7 +29,7 @@ const HomeScreen = ({ navigation }: any) => {
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Card Section */}
-        {/* <View
+        <View
           className={`w-full rounded-lg overflow-hidden ${
             isIOS ? "my-4" : "mb-4"
           } `}
@@ -57,17 +57,17 @@ const HomeScreen = ({ navigation }: any) => {
               />
             </View>
           </ImageBackground>
-        </View> */}
+        </View>
 
         <>
           {/* Doctor Speciality */}
-          {/* <View className="flex flex-row items-center justify-between">
+          <View className="flex flex-row items-center justify-between">
             <Text className="text-xl font-bold">Doctor Speciality</Text>
             <Text>See All</Text>
-          </View> */}
+          </View>
 
           {/* Speciality Section */}
-          {/* <View className="flex flex-row justify-between items-center my-2">
+          <View className="flex flex-row justify-between items-center my-2">
             <View className="flex items-center justify-center gap-2">
               <View className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center">
                 <Image
@@ -115,22 +115,22 @@ const HomeScreen = ({ navigation }: any) => {
               </View>
               <Text>Pediatric</Text>
             </View>
-          </View> */}
+          </View>
         </>
 
         <>
           {/* Recomendation */}
-          {/* <View className="flex flex-row items-center justify-between my-2">
+          <View className="flex flex-row items-center justify-between my-2">
             <Text className="text-xl font-bold">Recommended Doctor</Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("DoctorScreen")}
             >
               <Text>See All</Text>
             </TouchableOpacity>
-          </View> */}
+          </View>
 
           {/* Doctor */}
-          {/* <ScrollView
+          <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             className="h-[100px]"
@@ -221,7 +221,7 @@ const HomeScreen = ({ navigation }: any) => {
                 </View>
               </TouchableOpacity>
             </View>
-          </ScrollView> */}
+          </ScrollView>
         </>
 
         <>
@@ -233,7 +233,6 @@ const HomeScreen = ({ navigation }: any) => {
               <Text>See All</Text>
             </TouchableOpacity>
           </View> */}
-        
         </>
       </ScrollView>
     </Container>

@@ -95,7 +95,7 @@ const AppointmentScreen = ({ route, navigation }: any) => {
           contentContainerStyle={{ flexGrow: 1 }}
           keyboardShouldPersistTaps="handled"
         >
-          <Container className="p-4 bg-white">
+          <Container className="p-4 bg-white mb-10">
             {/* Appointment Information Section */}
             <View className="bg-[#F0F8FF] p-4 rounded-md my-2">
               <Text className="text-lg font-bold mb-4 text-[#0077b6]">
