@@ -1,4 +1,5 @@
 // Default
+import React from "react";
 import { SafeAreaView, View, StyleSheet, StatusBar } from "react-native";
 
 // Hooks
@@ -11,10 +12,12 @@ const Container = (props: any) => {
   // Hooks
   const { isAndroid } = usePlatform();
 
+  const getStatuBarHeight = (StatusBar.currentHeight ?? 24) - 14;
+
   // Custom Css
   const styles = StyleSheet.create({
     AndroidSafeArea: {
-      paddingTop: isAndroid ? StatusBar.currentHeight : 0,
+      paddingTop: isAndroid ? getStatuBarHeight : 0,
     },
   });
 

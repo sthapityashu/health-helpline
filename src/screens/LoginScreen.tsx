@@ -1,54 +1,77 @@
-// Default
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { Button, TextInput, Divider } from "react-native-paper";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Animated,
+  StyleSheet,
+} from "react-native";
 
-// Relative
-import { Header, Container } from "../components";
-
-const LoginScreen = ({ navigation }: any) => {
-  const [text, setText] = React.useState("");
-
+const LoginPanel = ({ slideAnim, toggleLoginPanel }: any) => {
   return (
-    <>
-      <Container>
-        <Header> Login</Header>
-
-        <TextInput
-          label="Email"
-          value={text}
-          onChangeText={(text) => setText(text)}
-          mode="outlined"
-          className="rounded-none my-4"
-        />
-        <TextInput
-          label="Password"
-          value={text}
-          onChangeText={(text) => setText(text)}
-          mode="outlined"
-        />
-        <Button
-          mode="contained"
-          className="my-4 bg-[#01B9EB] rounded-sm"
-          onPress={() => navigation.navigate("DashboardScreen")}
-        >
-          Submit
-        </Button>
-        <Divider className="mt-4 mb-6" />
-        <View className="flex flex-row gap-4">
-          <Text>Don't have an account?</Text>
-          <TouchableOpacity>
-            <Text
-              className="text-[#01B9EB]"
-              onPress={() => navigation.navigate("RegisterScreen")}
-            >
-              Register now
-            </Text>
+    <View style={styles.overlay}>
+      <Animated.View
+        style={[
+          styles.loginPanel,
+          {
+            transform: [{ translateX: slideAnim }], // Apply horizontal slide
+          },
+        ]}
+      >
+        <View style={styles.loginContent}>
+          <Text style={styles.loginTitle}>Login</Text>
+          {/* Add your login form or content here */}
+          <TouchableOpacity
+            onPress={toggleLoginPanel}
+            style={styles.closeButton}
+          >
+            <Text style={styles.closeText}>Close</Text>
           </TouchableOpacity>
         </View>
-      </Container>
-    </>
+      </Animated.View>
+    </View>
   );
 };
 
-export default LoginScreen;
+const styles = StyleSheet.create({
+  overlay: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    zIndex: 999,
+    justifyContent: "flex-end",
+  },
+  loginPanel: {
+    position: "absolute",
+    height: "100%",
+    width: "80%",
+    backgroundColor: "#fff",
+    right: 0, // Ensure it's aligned to the right
+    zIndex: 1000,
+  },
+  loginContent: {
+    padding: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  },
+  loginTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  closeButton: {
+    marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "#01B9EB",
+    borderRadius: 5,
+  },
+  closeText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+});
+
+export default LoginPanel;
