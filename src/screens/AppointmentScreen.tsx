@@ -46,6 +46,7 @@ const AppointmentScreen = ({ route, navigation }: any) => {
     { label: "5:00 PM", value: "5" },
   ];
 
+  // Date change in appointment screen
   const handleDateChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
     setHospitalTime("");
@@ -53,6 +54,7 @@ const AppointmentScreen = ({ route, navigation }: any) => {
     setDate(currentDate);
   };
 
+  // Time change in appointment screen
   const handleTimeChange = (selectedTime: any) => {
     const currentTime = selectedTime;
     setHospitalTime(currentTime);
