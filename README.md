@@ -96,4 +96,4 @@ export default function App() {
   );
 }
 ```
-This README provides step-by-step instructions for setting up Tailwind CSS in React Native, considering different folder structures.
+This README provides step-by-step instructions for setting up Tailwind CSS in React Native, considering different folder structures (with src or without src).
