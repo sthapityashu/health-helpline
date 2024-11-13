@@ -1,3 +1,5 @@
+// Defaults
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,12 +13,13 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import React, { useState, useRef, useEffect } from "react";
-import { useCart } from "@context/useCart";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useMutation } from "@tanstack/react-query"; // Import useMutation from TanStack Query
 import axios from "axios";
+
+// Context
+import { useCart } from "@context/useCart";
 
 // Define types for form data
 interface FormData {

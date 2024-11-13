@@ -1,3 +1,4 @@
+// Defaults
 import React from "react";
 import {
   View,
@@ -23,9 +24,9 @@ const LoginPanel = ({ slideAnim, toggleLoginPanel }: any) => {
         ]}
       >
         <View style={styles.loginContent}>
-          <View className="flex flex-row items-center justify-between">
+          <View className="flex flex-row justify-center items-center">
             <Text style={styles.loginTitle}>Login</Text>
-            <TouchableOpacity onPress={toggleLoginPanel} className="mb-[20px]">
+            <TouchableOpacity onPress={toggleLoginPanel} className="">
               <Entypo name="circle-with-cross" size={24} color="black" />
             </TouchableOpacity>
           </View>
@@ -50,7 +51,7 @@ const LoginPanel = ({ slideAnim, toggleLoginPanel }: any) => {
           >
             Register
           </Button>
-          <Divider  />
+          <Divider />
         </View>
       </Animated.View>
     </View>

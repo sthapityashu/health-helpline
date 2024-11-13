@@ -1,3 +1,4 @@
+// Defaults
 import React, { useState, useRef } from "react";
 import {
   View,
@@ -10,9 +11,13 @@ import {
 } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
+// Relative
 import HomeScreen from "./HomeScreen";
-import Container from "@components/Container";
 import { LoginScreen } from ".";
+
+// Componentes
+import Container from "@components/Container";
 
 const Stack = createStackNavigator();
 const screenWidth = Dimensions.get("window").width; // Get screen width
