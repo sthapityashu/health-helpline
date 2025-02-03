@@ -49,12 +49,12 @@ npm start
 Available on Google Play Store and Apple App Store.
 ### 2. Book an Appointment:
  - Navigate to the Appointments section.
-- Select the preferred hospital and doctor in healthcare service.
-- Choose a time slot and confirm the booking.
+ - Select the preferred hospital and doctor in healthcare service.
+ - Choose a time slot and confirm the booking.
 ### 3. Add Lab Tests to Cart:
  - Browse the Lab Tests section.
-- Select tests and add them to the cart.
-- Review the cart and proceed to checkout.
+ - Select tests and add them to the cart.
+ - Review the cart and proceed to checkout.
 
 
 ----------------------------------------------------------------------------------------------
